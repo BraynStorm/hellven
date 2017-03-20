@@ -2,6 +2,8 @@ package braynstorm.rpg.gui
 
 import braynstorm.logger.GlobalKogger
 import braynstorm.rpg.files.Config
+import org.joml.Matrix4f
+import org.lwjgl.BufferUtils
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.glfw.GLFWVidMode
@@ -43,6 +45,9 @@ object Window {
 			field = value
 		}
 	
+	
+	val projectionBuffer = BufferUtils.createFloatBuffer(16)
+	val matrix = Matrix4f()
 	
 	init {
 		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createThrow())
