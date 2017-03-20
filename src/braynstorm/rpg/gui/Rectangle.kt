@@ -36,40 +36,37 @@ class Rectangle(val position: Vector3f, val width: Int = 16, val height: Int = 1
 		matrix.identity()
 		
 		matrix.scale(
-				width.toFloat() / Window.width,
-				height.toFloat() / Window.height,
+				width.toFloat(),
+				height.toFloat(),
 				1f
 		)
 		
 		matrix.translate(position.x, position.y, position.y)
-		matrix.identity()
+//		matrix.identity()
 		
 		matrix.get(matrixBuffer)
 	}
 	
-	fun draw(shaderProgram: ShaderProgram) {
+	fun draw() {
 		checkAndCleanUp()
-//		texture.bind()
-		shaderProgram.bind()
-		shaderProgram.setUniformMatrix4("model", matrixBuffer)
-//		shaderProgram.setUniformMatrix4("projection", matrixBuffer)
-//		shaderProgram.setUniformMatrix4("view", matrixBuffer)
+		texture.bind()
+		ShaderProgram.current!!.setUniformMatrix4("model", matrixBuffer)
 		GL30.glBindVertexArray(vao)
-		GL11.glDrawElements(GL11.GL_TRIANGLES, 6, GL11.GL_UNSIGNED_INT, 0) // 6 indices, 2 triangles
+		GL11.glDrawElements(GL11.GL_TRIANGLES, 6, GL11.GL_UNSIGNED_BYTE, 0) // 6 indices, 2 triangles
 		GL30.glBindVertexArray(0)
 	}
 	
 	
 	companion object {
 		val vbo = GLUtils.createAndFillBuffer(GL15.GL_ARRAY_BUFFER,
-				0f, 0f, 0f, /*0f, 0f,*/
-				2f, 0f, 0f, /*1f, 0f,*/
-				2f, 2f, 0f, /*1f, 1f,*/
-				0f, 2f, 0f/*, 0f, 1f*/
+				0f, 0f, 0f, 0f, 0f,
+				1f, 0f, 0f, 1f, 0f,
+				1f, 1f, 0f, 1f, 1f,
+				0f, 1f, 0f, 0f, 1f
 		)
 		
 		val ibo = GLUtils.createAndFillBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER,
-				0, 1, 2, 0, 2, 3
+				0.toByte(), 1, 2, 0, 2, 3
 		)
 		
 		val vao = GL30.glGenVertexArrays()
@@ -83,8 +80,8 @@ class Rectangle(val position: Vector3f, val width: Int = 16, val height: Int = 1
 			GL20.glEnableVertexAttribArray(1)
 			
 			GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo)
-			GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 0, 0)
-//			GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 20, 12)
+			GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 20, 0)
+			GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 20, 12)
 			GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, ibo)
 			
 			GL30.glBindVertexArray(0)

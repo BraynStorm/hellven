@@ -3,18 +3,13 @@ package braynstorm.rpg
 import braynstorm.logger.GlobalKogger
 import braynstorm.rpg.files.Config
 import braynstorm.rpg.files.ResourceManager
-import braynstorm.rpg.gui.KeyUpEvent
-import braynstorm.rpg.gui.Rectangle
-import braynstorm.rpg.gui.Window
-import braynstorm.rpg.gui.WindowCloseEvent
+import braynstorm.rpg.gui.*
 import braynstorm.rpg.gui.shaders.ShaderManager
 import braynstorm.rpg.gui.shaders.ShaderProgram
 import braynstorm.rpg.gui.shaders.ShaderType
 import braynstorm.rpg.gui.textures.TextureManager
 import javazoom.jl.player.Player
-import org.joml.Matrix4f
 import org.joml.Vector3f
-import org.lwjgl.BufferUtils
 import org.lwjgl.glfw.GLFW
 import java.io.File
 import java.io.FileInputStream
@@ -69,11 +64,8 @@ object Launcher {
 		program.addUniform("projection")
 		program.bind()
 		
-		
-		val projMatrix = Matrix4f()
-		val buffer = BufferUtils.createFloatBuffer(16)
-		
-		projMatrix.get(buffer)
+		val pickingProgram = ShaderProgram()
+		pickingProgram.addShaders(true, ShaderManager["shader2d", ShaderType.VERTEX]!!, ShaderManager["picking", ShaderType.FRAGMENT]!!)
 		
 		
 		val player = Player(ResourceManager.getSound("theme.mp3"))
@@ -82,9 +74,16 @@ object Launcher {
 			player.play()
 		}
 		
+		val cam = Camera()
+		
+		
 		while (shouldStayOpen) {
 			Window.frameStart()
-			rect.draw(program)
+			Timer.tick()
+			program.bind()
+			Window.useOrthoProjection()
+			cam.bindAndUpdate()
+			rect.draw()
 			Window.frameEnd()
 		}
 		
@@ -93,6 +92,7 @@ object Launcher {
 		GlobalKogger.destroy()
 	}
 }
+
 
 class MP3Encoding : AudioFormat.Encoding("mp3")
 class MP3FileReader : AudioFileReader() {

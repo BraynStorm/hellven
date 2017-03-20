@@ -1,7 +1,9 @@
 package braynstorm.rpg.gui
 
+import braynstorm.dirty.Dirty
 import braynstorm.logger.GlobalKogger
 import braynstorm.rpg.files.Config
+import braynstorm.rpg.gui.shaders.ShaderProgram
 import org.joml.Matrix4f
 import org.lwjgl.BufferUtils
 import org.lwjgl.glfw.GLFW
@@ -13,7 +15,7 @@ import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.WindowConstants
 
-object Window {
+object Window : Dirty {
 	
 	val window: Long
 	
@@ -46,8 +48,13 @@ object Window {
 		}
 	
 	
-	val projectionBuffer = BufferUtils.createFloatBuffer(16)
+	val projectionBuffer = BufferUtils.createFloatBuffer(16)!!
 	val matrix = Matrix4f()
+	
+	fun useOrthoProjection() {
+		checkAndCleanUp()
+		ShaderProgram.current!!.setUniformMatrix4("projection", projectionBuffer)
+	}
 	
 	init {
 		GLFW.glfwSetErrorCallback(GLFWErrorCallback.createThrow())
@@ -73,9 +80,6 @@ object Window {
 		GLFW.glfwWindowHint(GLFW.GLFW_DECORATED, GLFW.GLFW_FALSE)
 		GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE)
 		window = GLFW.glfwCreateWindow(1, 1, Config.getStringValue("window_title"), 0, 0)
-
-
-//		GLFW.glfwSetTime(0.0)
 		
 		// Debug
 		Monitors.forEach { GlobalKogger.logDebug(it.toString()) }
@@ -105,6 +109,21 @@ object Window {
 //		ResourceManager.loadAllLists()
 //		ResourceManager.loadAllShaders()
 	}
+	
+	
+	private var dirty = true
+	
+	override fun isDirty(): Boolean = dirty
+	
+	override fun setDirty() {
+		dirty = true
+	}
+	
+	override fun cleanUp() {
+		matrix.setOrtho2D(0f, width.toFloat(), 0f, height.toFloat())
+		matrix.get(projectionBuffer)
+	}
+	
 	
 	private fun setupEvents() {
 		// Resizing
@@ -174,6 +193,7 @@ object Window {
 	private fun setupListeners() {
 		WindowResizeEvent on {
 			GL11.glViewport(0, 0, width, height)
+			setDirty()
 		}
 	}
 	

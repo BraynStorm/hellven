@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Class-Path: lib/natives.jar lib/kotlin-runtime.jar lib/kotlin-reflect.jar lib/Braynstorm-Dirty.jar lib/Braynstorm-Logger.jar lib/Braynstorm-SimpleEvents.jar lib/jl1.0.1.jar lib/joml-1.9.2.jar lib/kotlin-reflect.jar lib/lwjgl.jar lib/lwjgl-openal.jar lib/lwjgl-opengl.jar lib/lwjgl-opencl.jar lib/lwjgl-glfw.jar lib/json.jar
+Class-Path: lib/natives.jar lib/lwjgl-stb.jar lib/kotlin-runtime.jar lib/kotlin-reflect.jar lib/Braynstorm-Dirty.jar lib/Braynstorm-Logger.jar lib/Braynstorm-SimpleEvents.jar lib/jl1.0.1.jar lib/joml-1.9.2.jar lib/kotlin-reflect.jar lib/lwjgl.jar lib/lwjgl-openal.jar lib/lwjgl-opengl.jar lib/lwjgl-opencl.jar lib/lwjgl-glfw.jar lib/json.jar
 Main-Class: braynstorm.rpg.Launcher
 

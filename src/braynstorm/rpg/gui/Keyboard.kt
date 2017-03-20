@@ -1,18 +1,21 @@
 package braynstorm.rpg.gui
 
+import org.lwjgl.glfw.GLFW
+
 /**
  * TODO Add class description
  * Created by Braynstorm on 16.1.2017 г..
  */
 object Keyboard {
 	
-	val keys = BooleanArray(500)
+	val keys = BooleanArray(GLFW.GLFW_KEY_LAST + 1)
 	
 	
 	fun isKeyDown(key: Int) = keys[key]
 	
 	fun setKeyState(key: Int, state: Boolean) {
-		keys[key] = state
+		if (key != -1)
+			keys[key] = state
 	}
 	
 }
