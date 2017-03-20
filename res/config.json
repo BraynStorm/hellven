@@ -1,0 +1,15 @@
+{
+     "longs": {},
+     "floats": {"camera_fov": 90},
+     "strings": {
+         "monitor": "SyncMaster 206BW(Digital)",
+         "window_title": "Hellven [0.0.∞]",
+         "window_mode": "WINDOWED"
+     },
+     "doubles": {},
+     "integers": {
+         "window_refreshRate": 60,
+         "window_width": 800,
+         "window_height": 600
+     }
+ }
