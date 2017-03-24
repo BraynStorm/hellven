@@ -1,6 +1,6 @@
 package braynstorm.rpg.files
 
-import braynstorm.rpg.gui.textures.*
+import braynstorm.rpg.graphics.textures.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.lwjgl.BufferUtils

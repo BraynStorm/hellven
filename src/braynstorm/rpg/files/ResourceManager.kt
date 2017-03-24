@@ -1,11 +1,11 @@
 package braynstorm.rpg.files
 
 import braynstorm.logger.GlobalKogger
-import braynstorm.rpg.gui.shaders.Shader
-import braynstorm.rpg.gui.shaders.ShaderManager
-import braynstorm.rpg.gui.shaders.ShaderType
-import braynstorm.rpg.gui.textures.TextureData
-import braynstorm.rpg.gui.textures.TextureManager
+import braynstorm.rpg.graphics.shaders.Shader
+import braynstorm.rpg.graphics.shaders.ShaderManager
+import braynstorm.rpg.graphics.shaders.ShaderType
+import braynstorm.rpg.graphics.textures.TextureData
+import braynstorm.rpg.graphics.textures.TextureManager
 import org.json.JSONException
 import java.io.IOException
 import java.io.InputStream

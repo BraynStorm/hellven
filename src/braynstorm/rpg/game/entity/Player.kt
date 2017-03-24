@@ -1,9 +1,12 @@
 package braynstorm.rpg.game.entity
 
 import braynstorm.rpg.game.GlobalPosition
+import braynstorm.rpg.game.fields.GameObjectField
 import braynstorm.rpg.game.mechanics.EmptyResource
 import braynstorm.rpg.game.mechanics.Health
-import braynstorm.rpg.game.mechanics.ResourcePool
+import braynstorm.rpg.game.mechanics.IntResourcePool
+import braynstorm.rpg.graphics.KeyDownEvent
+import org.lwjgl.glfw.GLFW
 
 /**
  * A player... duh..
@@ -12,11 +15,11 @@ import braynstorm.rpg.game.mechanics.ResourcePool
 class Player(
 		var name: String = "Jon Doe",
 		health: Health,
-		resource: ResourcePool<*>?,
+		resource: IntResourcePool?,
 		isDead: Boolean = false,
 		playerClass: EntityClass,
 		gps: GlobalPosition)
-	: LivingEntity(
+	: EntityLiving(
 		health,
 		resource ?: EmptyResource(),
 		isDead,
@@ -24,6 +27,19 @@ class Player(
 		playerClass,
 		gps
 ) {
+	init {
+		
+		
+		KeyDownEvent on {
+			if (it.keycode == GLFW.GLFW_KEY_E) {
+				val field = gps.map[gps.x, gps.y]
+				if (field is GameObjectField) {
+					field.gameObject.onInteract(field, this)
+				}
+			}
+		}
+	}
 	
 	
 }
+

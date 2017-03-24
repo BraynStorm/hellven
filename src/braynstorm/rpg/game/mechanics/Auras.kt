@@ -1,7 +1,7 @@
 package braynstorm.rpg.game.mechanics
 
 import braynstorm.events.SimpleEvent
-import braynstorm.rpg.game.entity.LivingEntity
+import braynstorm.rpg.game.entity.EntityLiving
 
 /**
  * Aura is a buff/debuff/status effect applied to a [braynstorm.rpg.entity.LivingEntity]
@@ -15,7 +15,7 @@ import braynstorm.rpg.game.entity.LivingEntity
  */
 abstract class Aura(val id: Int = Aura.Companion.EZID, val name: String, val maxAppliections: Int = 1) {
 	
-	abstract fun tick(receiver: LivingEntity)
+	abstract fun tick(receiver: EntityLiving)
 	
 	companion object {
 		var EZID = 0
@@ -26,7 +26,7 @@ abstract class Aura(val id: Int = Aura.Companion.EZID, val name: String, val max
 }
 
 /**
- * Representation of the effect of an aura over a duration on a given [LivingEntity].
+ * Representation of the effect of an aura over a duration on a given [EntityLiving].
  *
  *
  *
@@ -35,7 +35,7 @@ abstract class Aura(val id: Int = Aura.Companion.EZID, val name: String, val max
  */
 open class AuraStack(
 		val aura: Aura,
-		val receiver: LivingEntity,
+		val receiver: EntityLiving,
 		val startingDuration: Int,
 		val persistsThroughDeath: Boolean = false) {
 	
@@ -85,9 +85,9 @@ open class AuraStack(
 	
 }
 
-class InfiniteAuraStack(aura: Aura, persistentThroughDeath: Boolean, receiver: LivingEntity) : AuraStack(aura, receiver, -1, persistentThroughDeath) {
+class InfiniteAuraStack(aura: Aura, persistentThroughDeath: Boolean, receiver: EntityLiving) : AuraStack(aura, receiver, -1, persistentThroughDeath) {
 	override val infinite = true
 }
 
-object AuraTickEvent : SimpleEvent<LivingEntity>()
+object AuraTickEvent : SimpleEvent<EntityLiving>()
 object AuraFadeEvent : SimpleEvent<AuraStack>()

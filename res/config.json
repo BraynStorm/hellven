@@ -2,7 +2,7 @@
      "longs": {},
      "floats": {"camera_fov": 90},
      "strings": {
-         "monitor": "SyncMaster 206BW(Digital)",
+         "monitor": "Generic PnP Monitor",
          "window_title": "Hellven [0.0.∞]",
          "window_mode": "WINDOWED"
      },

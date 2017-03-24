@@ -147,4 +147,4 @@ class LivingEssence(capacity: Int, pool: Int = 0) : IntResourcePool(capacity, po
 	
 }
 
-class Willpower(capacity: Int)
+class Willpower(capacity: Int, pool: Int = 0)

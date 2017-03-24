@@ -1,7 +1,7 @@
 package braynstorm.rpg.files
 
 import braynstorm.logger.GlobalKogger
-import braynstorm.rpg.gui.ConfigException
+import braynstorm.rpg.graphics.ConfigException
 import org.json.JSONObject
 import java.io.IOException
 import java.nio.file.Path
