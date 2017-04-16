@@ -87,7 +87,7 @@ class WorldLayout : Json.Serializable {
 		
 		cells = createMatrix(width, height, { x, y ->
 			val pixel = pixmap.getPixel(x, y) ushr 8
-			val t = colorMap[pixel] ?: throw PixmapColorException("Pixmap has unspecified color: #%06X, position: x=$x, y=$y", pixel)
+			val t = colorMap[pixel] ?: throw PixmapColorException("Pixmap has unspecified color: #%06X, position: x=$x, y=$y, pixmap=${jsonData.getString("pixelmap")}", pixel)
 			
 			when (t) {
 				WorldLayout.Variant.EMPTY      -> {
