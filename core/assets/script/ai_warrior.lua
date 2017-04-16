@@ -24,7 +24,12 @@ function tick(entity)
 		-- TODO ABILITY CASTING
 		print(ability:getName() .. " is "..ability:canUse())
 	end
-	]]--
+	]] --
+	
+	if manhattanDist:len2() > 5 then
+		return
+	end
+	
 	
 	if manhattanDist.x < 1 then
 		world:entityTryMove(Direction.RIGHT, entity)
