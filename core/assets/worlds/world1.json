@@ -37,8 +37,7 @@
     "FFEA00": {
       "type": "gameobject",
       "id": "loot_chest",
-      "settings":
-      {
+      "settings": {
         "loottable": "loot_chest_world1"
       }
     },
