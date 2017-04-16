@@ -168,7 +168,7 @@
     }
   },
   {
-    "id": 6,
+    "id": 15,
     "usage": "equipment",
     "slot": "main_hand",
     "quality": "legendary",
@@ -183,6 +183,43 @@
       "stamina": 10,
       "health_per_sec": 6,
       "mana_per_sec": 7
+    }
+  },
+  {
+    "id": 16,
+    "usage": "equipment",
+    "slot": "off_hand",
+    "quality": "legendary",
+    "attributes": {
+      "armor": 150,
+      "strength": 5,
+      "intellect": 8,
+      "agility": 1,
+      "wisdom": 5,
+      "stamina": 7,
+      "health_per_sec": 2,
+      "mana_per_sec": 3
+    }
+  },
+  {
+    "id": 17,
+    "usage": "equipment",
+    "slot": "trinket",
+    "quality": "common",
+    "attributes": {
+      "health_per_sec": 5
+    }
+  },
+  {
+    "id": 18,
+    "usage": "equipment",
+    "slot": "head",
+    "quality": "rare",
+    "attributes": {
+      "armor": 12,
+      "intellect": 1,
+      "mana": 20,
+      "mana_per_sec": 2
     }
   }
 ]
