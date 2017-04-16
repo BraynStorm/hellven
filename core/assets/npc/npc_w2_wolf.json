@@ -1,5 +1,5 @@
 {
-  "ai": "ai_mob",
+  "ai": "ai_warrior",
   "npc_type": "normal_monster",
   "npc_class": "warrior",
   "texture": "npc_w2_wolf",

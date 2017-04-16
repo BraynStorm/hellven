@@ -1,0 +1,21 @@
+{
+  "ai": "ai_boss",
+  "npc_type": "boss_monster",
+  "npc_class": "unknown",
+  "texture": "npc_w2_boss",
+  "hostility": {
+    "player": "hostile",
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 1200,
+    "mana": 1000
+  },
+  "abilities": {
+    "cleave": 1,
+    "fire blast": 1,
+    "enrage": 1
+  },
+  "loot": {
+  }
+}

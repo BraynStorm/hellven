@@ -2,16 +2,16 @@
   "ai": "ai_empty",
   "npc_type": "quest_giver",
   "npc_class": "mage",
-  "texture": "npc_w1_questgiver2",
+  "texture": "npc_w1_qgiver1",
   "hostility": {
     "all": "friendly"
   },
   "attributes": {
-    "health": 150,
-    "mana": 300
+    "health": 500,
+    "mana": 800
   },
   "abilities": {
-    "fireball": 1
+    "fireball": 2
   },
   "loot": {
   }

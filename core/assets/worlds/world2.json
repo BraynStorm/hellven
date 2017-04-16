@@ -10,36 +10,54 @@
     "FF0000": {
       "type": "player"
     },
-    "FF73FD": {
-      "type": "npc",
-      "id": "npc_w1_sullivan"
-    },
     "81007F": {
       "type": "npc",
-      "id": "npc_w1_questgiver2"
+      "id": "npc_w2_qgiver1"
     },
-    "00FF18": {
+    "E840E6": {
+      "type": "npc",
+      "id": "npc_w2_qgiver2"
+    },
+    "B913B7": {
+      "type": "npc",
+      "id": "npc_w2_qgiver3"
+    },
+    "9D1C89": {
+      "type": "npc",
+      "id": "npc_w2_qgiver4"
+    },
+    "0DEA41": {
       "type": "spawnArea",
       "settings": {
-        "entity": "npc_w1_brawler",
-        "level": 1,
-        "count": 6
+        "entity": "npc_w2_wolf",
+        "minlevel":3,
+        "maxlevel":5,
+        "count": 23
       }
     },
     "00890D": {
       "type": "spawnArea",
       "settings": {
-        "entity": "npc_w1_sorcerer",
-        "minlevel":1,
-        "maxlevel":2,
+        "entity": "npc_w2_rogue",
+        "minlevel":3,
+        "maxlevel":5,
+        "count": 15
+      }
+    },
+    "78FF00": {
+      "type": "spawnArea",
+      "settings": {
+        "entity": "npc_w2_dragon",
+        "minlevel":4,
+        "maxlevel":6,
         "count": 8
       }
     },
-    "45CEF5": {
+    "00FFF0": {
       "type": "gameobject",
       "id": "teleporter",
       "settings": {
-        "world": "world2"
+        "world": "bossdungeon"
       }
     }
   }

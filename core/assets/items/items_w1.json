@@ -2,10 +2,169 @@
   {
     "id": 0,
     "usage": "equipment",
-    "slot": "chest",
-    "quality":"common",
+    "slot": "head",
+    "quality": "rare",
     "attributes": {
+      "armor": 12,
+      "intellect": 1,
+      "stamina": 1
+    }
+  },
+  {
+    "id": 1,
+    "usage": "equipment",
+    "slot": "shoulder",
+    "quality": "rare",
+    "attributes": {
+      "armor": 35,
+      "stamina": 2,
+      "strength": 2
+    }
+  },
+  {
+    "id": 2,
+    "usage": "equipment",
+    "slot": "chest",
+    "quality": "common",
+    "attributes": {
+      "armor": 20,
       "intellect": 1
+    }
+  },
+  {
+    "id": 3,
+    "usage": "equipment",
+    "slot": "legs",
+    "quality": "common",
+    "attributes": {
+      "armor": 10,
+      "stamina": 1
+    }
+  },
+  {
+    "id": 4,
+    "usage": "equipment",
+    "slot": "hands",
+    "quality": "epic",
+    "attributes": {
+      "armor": 16,
+      "wisdom": 1,
+      "intellect": 2,
+      "mana_per_sec": 5,
+      "mana": 50
+    }
+  },
+  {
+    "id": 5,
+    "usage": "equipment",
+    "slot": "feet",
+    "quality": "common",
+    "attributes": {
+      "armor": 9,
+      "strength": 1
+    }
+  },
+  {
+    "id": 6,
+    "usage": "equipment",
+    "slot": "main_hand",
+    "quality": "common",
+    "attributes": {
+      "weapon_damage_min": 5,
+      "weapon_damage_max": 15,
+      "attack_speed": 40,
+      "strength": 1
+    }
+  },
+  {
+    "id": 7,
+    "usage": "equipment",
+    "slot": "off_hand",
+    "quality": "common",
+    "attributes": {
+      "armor": 50,
+      "intellect": 1
+    }
+  },
+  {
+    "id": 8,
+    "usage": "equipment",
+    "slot": "trinket",
+    "quality": "epic",
+    "attributes": {
+      "strength": 5,
+      "stamina": 4,
+      "attack_speed": -20,
+      "health_per_second": 5
+    }
+  },
+  {
+    "id": 9,
+    "usage": "equipment",
+    "slot": "head",
+    "quality": "common",
+    "attributes": {
+      "armor": 20,
+      "strength": 1
+    }
+  },
+  {
+    "id": 10,
+    "usage": "equipment",
+    "slot": "shoulder",
+    "quality": "epic",
+    "attributes": {
+      "armor": 40,
+      "stamina": 2,
+      "intellect": 5,
+      "strength": 2
+      "mana": 120,
+      "health_per_second": 7
+    }
+  },
+  {
+    "id": 11,
+    "usage": "equipment",
+    "slot": "chest",
+    "quality": "rare",
+    "attributes": {
+      "armor": 30,
+      "strength": 2,
+      "health_per_second": 4
+    }
+  },
+  {
+    "id": 12,
+    "usage": "equipment",
+    "slot": "legs",
+    "quality": "rare",
+    "attributes": {
+      "armor": 18,
+      "stamina": 2,
+      "intellect": 1
+    }
+  },
+  {
+    "id": 13,
+    "usage": "equipment",
+    "slot": "hands",
+    "quality": "common",
+    "attributes": {
+      "armor": 10,
+      "mana": 20
+    }
+  },
+  {
+    "id": 14,
+    "usage": "equipment",
+    "slot": "feet",
+    "quality": "epic",
+    "attributes": {
+      "armor": 19,
+      "strength": 1,
+      "mana": 60,
+      "health": 60,
+      "agility": 4
     }
   }
 ]

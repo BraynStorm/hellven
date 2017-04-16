@@ -1,0 +1,59 @@
+{
+  "pixelmap": "worlds/world2.png",
+  "mapping": {
+    "000000": {
+      "type": "solid"
+    },
+    "FFFFFF": {
+      "type": "empty"
+    },
+    "FF0000": {
+      "type": "player"
+    },
+    "00890D": {
+      "type": "spawnArea",
+      "settings": {
+        "entity": "npc_w2_rogue",
+        "minlevel":4,
+        "maxlevel":5,
+        "count": 3
+      }
+    },
+    "78FF00": {
+      "type": "spawnArea",
+      "settings": {
+        "entity": "npc_w2_dragon",
+        "minlevel":5,
+        "maxlevel":7,
+        "count": 2
+      }
+    },
+    "FF73FD": {
+      "type": "npc",
+      "id": "npc_w2_boss"
+    },
+    "FFEA00": {
+      "type": "gameobject",
+      "id": "loot_chest",
+      "settings":
+      {
+        "loottable": "loot_chest_bossdungeon"
+      }
+    },
+    "0024FF": {
+      "type": "gameobject",
+      "id": "teleporter",
+      "settings": {
+        "world": "world1"
+      }
+    },
+    "1B0BB7": {
+      "type": "gameobject",
+      "id": "teleporter",
+      "settings": {
+        "world": "world2"
+      }
+    }
+  }
+}
+

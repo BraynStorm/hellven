@@ -1,18 +1,19 @@
 {
-  "ai": "ai_mage",
+  "ai": "ai_warrior",
   "npc_type": "normal_monster",
-  "npc_class": "mage",
-  "texture": "npc_w1_sorcerer",
+  "npc_class": "warrior",
+  "texture": "npc_w2_wolf",
   "hostility": {
     "player": "hostile",
     "all": "friendly"
   },
   "attributes": {
-    "health": 59,
-    "mana": 150
+    "health": 170,
+    "rage": 120
   },
   "abilities": {
-    "arcane blast": 1
+    "overpower": 1,
+    "rend": 1
   },
   "loot": {
   }

@@ -1,3 +1,4 @@
+
 package braynstorm.hellven.game
 
 import braynstorm.hellven.game.ability.Damage
@@ -39,7 +40,6 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		add(EquippableItemSlot(EquipmentSlotType.TRINKET))
 		add(EquippableItemSlot(EquipmentSlotType.TRINKET))
 	}
-	
 	override final var inCombat: Boolean = false
 		set(value) {
 			if (value)

@@ -1,5 +1,5 @@
 {
-  "ai": "ai_mob",
+  "ai": "ai_mage",
   "npc_type": "normal_monster",
   "npc_class": "mage",
   "texture": "npc_w2_dragon",
