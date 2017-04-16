@@ -1,0 +1,7 @@
+{
+  braynstorm.hellven.gui.elements.AbilityBar$Style: {
+    default: {
+      buttonBackground: ability_button_background
+    }
+  }
+}

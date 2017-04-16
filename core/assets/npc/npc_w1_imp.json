@@ -1,0 +1,17 @@
+{
+  "ai": "ai_mob",
+  "npc_type": "normal_monster",
+  "npc_class": "mage",
+  "texture": "npc_w1_sullivan",
+  "hostility": {
+    "player": "hostile",
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 200,
+    "mana": 50
+  },
+  "abilities": {
+    "fireball": 1
+  }
+}

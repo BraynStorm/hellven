@@ -1,0 +1,78 @@
+{
+  com.badlogic.gdx.graphics.g2d.BitmapFont: {
+    CenturyGothic_14: {
+      file: fonts/century_gothic_14.fnt
+    }
+    Nevis14: {
+      file: fonts/nevis_14.fnt
+    }
+    Nevis18: {
+      file: fonts/nevis_18.fnt
+    }
+    Nevis32: {
+      file: fonts/nevis_32.fnt
+    }
+    Morpheus_17: {
+      file: fonts/morpheus_17.fnt
+    }
+    Morpheus_14: {
+      file: fonts/morpheus_14.fnt
+    }
+
+    default: CenturyGothic_14
+  }
+  com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+    bar_filling: {
+      name: bar_filling,
+      color: {hex: 15D52A}
+    }
+  }
+  com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+    default-horizontal: {
+      background: bar_background,
+      knobBefore: textfield_selection
+    }
+  }
+  com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+    default: {
+      font: default
+      fontColor: {hex: FFFFFF}
+    },
+    mainscreen: {
+      font: Nevis32
+    }
+    about: {
+      font: Nevis18
+      fontColor: {hex: FFFFFF}
+    }
+  }
+  com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+    default: {
+      font: Nevis14
+      fontColor: {hex: D5D5D5}
+      background: textfield_background,
+      cursor: textfield_cursor,
+      selection: textfield_selection,
+    }
+  }
+  com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+    default: {
+      font: Nevis14
+      up: button_normal
+      down: button_down
+      over: button_hover
+    }
+  }
+  braynstorm.hellven.gui.elements.ResourceBar$Style: {
+    default: {
+      filling: bar_filling
+      background: bar_background,
+      font: default
+    }
+  }
+  braynstorm.hellven.gui.elements.FrameEntity$Style: {
+    default: {
+      background: bar_background
+    }
+  }
+}

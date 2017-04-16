@@ -1,0 +1,11 @@
+[
+  {
+    "id": 0,
+    "usage": "equipment",
+    "slot": "chest",
+    "quality":"common",
+    "attributes": {
+      "intellect": 1
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "ai": "ai_mob",
+  "npc_type": "normal_monster",
+  "npc_class": "warrior",
+  "texture": "npc_w1_brawler",
+  "hostility": {
+    "player": "hostile",
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 70,
+    "rage": 100
+  },
+  "abilities": {
+    "rend": 1,
+    "mortal strike": 1
+  },
+  "loot": {
+  }
+}

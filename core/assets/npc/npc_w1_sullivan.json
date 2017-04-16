@@ -1,0 +1,18 @@
+{
+  "ai": "ai_empty",
+  "npc_type": "quest_giver",
+  "npc_class": "warrior",
+  "texture": "npc_w1_questGiver1",
+  "hostility": {
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 200,
+    "rage": 100
+  },
+  "abilities": {
+    "mortal strike": 1
+  },
+  "loot": {
+  }
+}

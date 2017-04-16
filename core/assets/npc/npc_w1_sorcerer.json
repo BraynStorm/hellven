@@ -1,0 +1,19 @@
+{
+  "ai": "ai_mob",
+  "npc_type": "normal_monster",
+  "npc_class": "mage",
+  "texture": "npc_w1_sorcerer",
+  "hostility": {
+    "player": "hostile",
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 59,
+    "mana": 150
+  },
+  "abilities": {
+    "arcane blast": 1
+  },
+  "loot": {
+  }
+}

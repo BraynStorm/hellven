@@ -1,0 +1,45 @@
+{
+  "pixelmap": "worlds/world1.png",
+  "mapping": {
+    "000000": {
+      "type": "solid"
+    },
+    "FFFFFF": {
+      "type": "empty"
+    },
+    "FF0000": {
+      "type": "player"
+    },
+    "FF73FD": {
+      "type": "npc",
+      "id": "npc_w1_sullivan"
+    },
+    "81007F": {
+      "type": "npc",
+      "id": "npc_w1_questGiver2"
+    },
+    "00FF18": {
+      "type": "spawnArea",
+      "settings": {
+        "entity": "npc_w1_brawler",
+        "level": 1,
+        "count": 6
+      }
+    },
+    "00890D": {
+      "type": "spawnArea",
+      "settings": {
+        "entity": "npc_w1_sorcerer",
+        "level": 1,
+        "count": 8
+      }
+    },
+    "45CEF5": {
+      "type": "gameobject",
+      "id": "teleporter",
+      "settings": {
+        "world": "world2"
+      }
+    }
+  }
+}
