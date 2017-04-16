@@ -58,9 +58,6 @@ object Hellven : Game() {
 		}
 		
 		themeSong.setOnCompletionListener(Music::play)
-
-//		Resources.Sounds.themeSong.volume = 0.1f
-//		Resources.Sounds.themeSong.play()
 	}
 	
 	object Atlas {
