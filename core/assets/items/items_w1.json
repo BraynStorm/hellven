@@ -95,7 +95,7 @@
       "strength": 5,
       "stamina": 4,
       "attack_speed": -20,
-      "health_per_second": 5
+      "health_per_sec": 5
     }
   },
   {
@@ -117,9 +117,9 @@
       "armor": 40,
       "stamina": 2,
       "intellect": 5,
-      "strength": 2
+      "strength": 2,
       "mana": 120,
-      "health_per_second": 7
+      "health_per_sec": 7
     }
   },
   {
@@ -130,7 +130,7 @@
     "attributes": {
       "armor": 30,
       "strength": 2,
-      "health_per_second": 4
+      "health_per_sec": 4
     }
   },
   {
@@ -165,6 +165,24 @@
       "mana": 60,
       "health": 60,
       "agility": 4
+    }
+  },
+  {
+    "id": 6,
+    "usage": "equipment",
+    "slot": "main_hand",
+    "quality": "legendary",
+    "attributes": {
+      "weapon_damage_min": 15,
+      "weapon_damage_max": 30,
+      "attack_speed": 50,
+      "strength": 7,
+      "intellect": 10,
+      "agility": 5,
+      "wisdom":3,
+      "stamina": 10,
+      "health_per_sec": 6,
+      "mana_per_sec": 7
     }
   }
 ]
