@@ -6,5 +6,8 @@
 
 -- TODO mage AI
 function tick(entity)
-
+	print("Mage Tick"..entity:getLocation():toString())
+	
+	-- TODO add ass-casting (spell casting)
+	
 end

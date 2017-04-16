@@ -3,6 +3,7 @@ package braynstorm.hellven.game
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.ability.Ability
 import braynstorm.hellven.game.dataparsing.NPCDescription
+import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.get
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.graphics.g2d.Batch
@@ -42,6 +43,8 @@ object NPCFactory {
 			init {
 				validateAttributes()
 				dead = false
+				health.fill(health.capacity, true)
+				resources[Mana::class.java]?.fill(resources[Mana::class.java]!!.capacity, true)
 			}
 			
 			val texture = description.texture.apply { setSize(Hellven.cellSizeF, Hellven.cellSizeF) }

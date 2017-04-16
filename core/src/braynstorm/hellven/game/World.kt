@@ -8,6 +8,7 @@ import braynstorm.hellven.gui.ScreenGame
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.ichipsea.kotlin.matrix.Matrix
@@ -23,7 +24,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	override val player: PlayerEntity = PlayerEntity(Realm.PlayerInfo.playerClass!!, Realm.PlayerInfo.playerName!!, level = 1)
 	
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
-	override val npcs: MutableMap<String, NPCEntity> = hashMapOf()
+	override val npcs: MutableSet<NPCEntity> = hashSetOf()
 	override val cells: Matrix<AbstractWorldCell> = worldLayout.cells
 	val spawnAreas: Set<SpawnArea>
 	private val playerController = PlayerController()
@@ -75,8 +76,8 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	// TODO these shouldnt be here
 	private val tickerResource = Ticker(1.0F, { tickResource() }, true)
 	private val tickerGameObject = Ticker(0.1F, { tickGameObject() }, true)
-	private val tickerFieldGroup = Ticker(0.5F, { tickFieldGroup() }, true)
-	private val tickerMobAI = Ticker(0.1F, { tickNPCAI() }, true)
+	private val tickerSpawnArea = Ticker(1F, { tickSpawnArea() }, true)
+	private val tickerMobAI = Ticker(1F, { tickNPCAI() }, true)
 	private val tickerAura = Ticker(0.1F, { tickAuras() }, true)
 	private val tickerMovement = Ticker(0.05F, { tickMovement() }, true)
 	
@@ -108,8 +109,16 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		
 	}
 	
+	override fun draw(batch: Batch?, parentAlpha: Float) {
+		super.draw(batch, parentAlpha)
+//
+//		spawnAreas.forEach { it.cells.forEach {
+//			it.draw(batch, parentAlpha)
+//		} }
+	}
+	
 	fun tickResource() {
-		npcs.values.forEach(TickReceiverResource::tickResource)
+		npcs.forEach(TickReceiverResource::tickResource)
 		player.tickResource()
 	}
 	
@@ -117,27 +126,24 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		// TODO implement GameObject Ticks.
 	}
 	
-	fun tickFieldGroup() {
+	fun tickSpawnArea() {
 		spawnAreas.forEach(SpawnArea::tick)
 		
 		//TODO implement FieldGroup ticks (cell groups / spawn areas)
 	}
 	
 	fun tickNPCAI() {
-		npcs.values.forEach(TickReceiverNPCAI::tickNPCAI)
+		npcs.forEach(NPCEntity::tickNPCAI)
 	}
 	
 	fun tickAuras() {
 		player.tickAuras()
-		npcs.values.forEach(TickReceiverAura::tickAuras)
+		npcs.forEach(TickReceiverAura::tickAuras)
 	}
 	
 	fun tickMovement() {
 		player.tickMove()
-		npcs.values.forEach {
-			if (it is TickReceiverMovement)
-				it.tickMove()
-		}
+		npcs.forEach(NPCEntity::tickMove)
 	}
 	
 	/**
@@ -148,19 +154,21 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	override fun spawnEntity(x: Int, y: Int, entity: Entity): Boolean {
 		val cell = cells[x, y] as? EntityContainer ?: return false
 		println("spawning")
-		
+		return spawnEntity(cell, entity)
+	}
+	
+	fun spawnEntity(location: Vector2, entity: Entity): Boolean = spawnEntity(location.x.toInt(), location.y.toInt(), entity)
+	fun spawnEntity(cell: EntityContainer, entity: Entity): Boolean {
 		if (cell.hasEntity)
 			return false
 		
 		cell.hold(entity)
 		
 		if (entity is NPCEntity)
-			npcs.put(entity.id, entity)
+			npcs += entity
 		
 		return cell.hasEntity
 	}
-	
-	fun spawnEntity(location: Vector2, entity: Entity): Boolean = spawnEntity(location.x.toInt(), location.y.toInt(), entity)
 	
 	override fun keyDown(keycode: Int): Boolean {
 		val step = Hellven.cellSizeF
@@ -190,11 +198,6 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 			
 			if (cells.contains(x, y)) {
 				val cell = cells[x, y]
-//				println("$cell.")
-//				println("Up: ${cell[Direction.UP]}.")
-//				if (cells[x, y].containedEntity != null) {
-//					gameScreen.targetFrame.entity = cells[x, y].containedEntity
-//				}
 				val entity = (cell as? EntityContainer)?.entity
 				gameScreen.targetFrame.entity = entity
 				player.target = entity
@@ -211,7 +214,6 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	
 	
 	override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
-		
 		if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
 			val newCameraPos = startDragCoords.cpy() - screenToLocalCoordinates(Vector2(screenX.toFloat(), screenY.toFloat()))
 			camera.position.add(newCameraPos.x, newCameraPos.y, 0f)

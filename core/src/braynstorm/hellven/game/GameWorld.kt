@@ -4,7 +4,7 @@ import com.ichipsea.kotlin.matrix.Matrix
 
 interface GameWorld {
 	val player: PlayerEntity
-	val npcs: MutableMap<String, NPCEntity>
+	val npcs: MutableSet<NPCEntity>
 	val cells: Matrix<WorldCell>
 	
 	

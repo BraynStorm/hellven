@@ -1,6 +1,5 @@
 package braynstorm.hellven.game
 
-import braynstorm.hellven.Hellven
 import braynstorm.hellven.PixmapColorException
 import braynstorm.hellven.game.cells.AbstractWorldCell
 import braynstorm.hellven.game.cells.PlainWorldCell
@@ -15,7 +14,6 @@ import com.badlogic.gdx.utils.JsonValue
 import com.ichipsea.kotlin.matrix.Matrix
 import com.ichipsea.kotlin.matrix.createMatrix
 import ktx.assets.loadOnDemand
-import ktx.math.div
 
 class WorldLayout : Json.Serializable {
 	enum class Variant {
@@ -72,7 +70,9 @@ class WorldLayout : Json.Serializable {
 					dataMap.put(intColor, child.getString("id"))
 				}
 				Variant.SPAWNAREA -> {
-					val spawnArea = SpawnAreaDescription.valueOf(child.get("settings") ?: throw ParseException("No settings field for spawn area"))
+					val spawnAreaDescription = SpawnAreaDescription.valueOf(child.get("settings") ?: throw ParseException("No settings field for spawn area"))
+					val spawnArea = SpawnArea(spawnAreaDescription)
+					spawnAreas += spawnArea
 					dataMap.put(intColor, spawnArea)
 				}
 				else              -> {
@@ -110,9 +110,8 @@ class WorldLayout : Json.Serializable {
 				}
 				WorldLayout.Variant.SPAWNAREA  -> {
 					val cell = WorldCellFactory.createPlainCell()
-					val spawnArea = SpawnArea(dataMap[pixel] as SpawnAreaDescription)
+					val spawnArea = dataMap[pixel] as SpawnArea
 					spawnArea += cell
-					spawnAreas += spawnArea
 					cell
 				}
 				WorldLayout.Variant.GAMEOBJECT -> {
@@ -138,21 +137,25 @@ class WorldLayout : Json.Serializable {
 	
 }
 
+var ID: Int = 0
+
 data class SpawnArea(val description: SpawnAreaDescription) {
-	val cells = mutableListOf<PlainWorldCell>()
-	
-	operator fun plusAssign(cell: PlainWorldCell) {
-		cells += cell
-	}
+	val id = ID++
+	private val cells = mutableListOf<PlainWorldCell>()
 	
 	lateinit var world: World
 	
+	operator fun plusAssign(cell: PlainWorldCell) {
+		cells.add(cell)
+	}
+	
 	fun tick() {
-		val currentMobsSpawned = cells.filter { it.hasEntity && it.entity!!.entityType != EntityType.PLAYER }.size
-		val cellCount = cells.size - 1
+		val currentMobsSpawned = cells.filter { it.hasEntity && it.entity!!.entityType != EntityType.PLAYER }.count()
+		val cellCount = cells.count() - 1
+		println("$id, Spawned: $currentMobsSpawned/${description.count}")
 		if (currentMobsSpawned < description.count) {
-			val cell = cells[MathUtils.random(0, cellCount )]
-			world.spawnEntity(cell.location.cpy() / Hellven.cellSizeF, NPCFactory.create(description.entityID, MathUtils.random(description.minlevel, description.maxlevel + 1)))
+			val cell = cells[MathUtils.random(0, cellCount)]
+			world.spawnEntity(cell, NPCFactory.create(description.entityID, MathUtils.random(description.minlevel, description.maxlevel + 1)))
 		}
 		
 	}
