@@ -67,8 +67,8 @@ class WorldLayout : Json.Serializable {
 					dataMap.put(intColor, child.getString("id"))
 				}
 				Variant.SPAWNAREA       -> {
-					val spawnArea = SpawnArea()
-					dataMap.put(intColor, )
+//					val spawnArea = SpawnArea()
+//					dataMap.put(intColor, )
 				}
 				else                    -> {
 				

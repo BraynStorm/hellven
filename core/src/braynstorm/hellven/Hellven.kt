@@ -34,7 +34,7 @@ object Hellven : Game() {
 		val items = loadOnDemand("locale/items", I18NBundleLoader.I18NBundleParameter()).asset
 		val abilities = loadOnDemand("locale/abilities", I18NBundleLoader.I18NBundleParameter()).asset
 		Localization.loadLocale(LocalizedBundle(ui, npcs, items, abilities))
-		Localization.setCurrentLocale(Locale.ENGLISH)
+		Localization.setCurrentLocale(Locale.getDefault())
 		
 		Assets.manager.setLoader(NPCDescription::class.java, NPCDescriptionLoader())
 		

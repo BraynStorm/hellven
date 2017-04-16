@@ -13,8 +13,6 @@ class SpawnArea(
 		val count: Int
 ) {
 	companion object {
-		fun valueOf(jsonValue: JsonValue): SpawnArea{
-		
-		}
+
 	}
 }
