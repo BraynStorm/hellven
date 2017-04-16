@@ -53,6 +53,14 @@
         "count": 8
       }
     },
+    "FFEA00": {
+      "type": "gameobject",
+      "id": "loot_chest",
+      "settings":
+      {
+        "loottable": "loot_chest_world2"
+      }
+    },
     "00FFF0": {
       "type": "gameobject",
       "id": "teleporter",

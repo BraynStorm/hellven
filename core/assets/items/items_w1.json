@@ -221,5 +221,28 @@
       "mana": 20,
       "mana_per_sec": 2
     }
+  },
+  {
+    "id": 19,
+    "usage": "equipment",
+    "slot": "shoulder",
+    "quality": "rare",
+    "attributes": {
+      "armor": 30,
+      "strength": 4
+    }
+  },
+  {
+    "id": 20,
+    "usage": "equipment",
+    "slot": "chest",
+    "quality": "epic",
+    "attributes": {
+      "armor": 50,
+      "strength": 3,
+      "stamina": 5,
+      "wisdom": 4,
+      "mana": 20
+    }
   }
 ]
