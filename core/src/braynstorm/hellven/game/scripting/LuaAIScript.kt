@@ -8,7 +8,7 @@ import javax.script.Bindings
 
 class LuaAIScript(var id: String, script: Bindings) : AIScript {
 	
-	private val tickFunction = script.get("tick") as LuaFunction
+	private val tickFunction = script["tick"] as LuaFunction
 	
 	override fun tick(entity: NPCEntity) {
 		try {

@@ -97,13 +97,20 @@ sealed class Utils {
 				EntityClass.WARRIOR -> Attributes.fromEnumMap(listOf(
 						Attribute.HEALTH to 100f,
 						Attribute.RAGE to 100f,
-						Attribute.STRENGTH to 1f
+						Attribute.STRENGTH to 1f,
+						Attribute.WEAPON_DAMAGE_MIN to 1f,
+						Attribute.WEAPON_DAMAGE_MAX to 1f,
+						Attribute.ATTACK_SPEED to 20f,
+						Attribute.HEALTH_PER_SEC to 10f,
+						Attribute.MOVEMENT_SPEED to 20f
 				))
 				EntityClass.MAGE    -> Attributes.fromEnumMap(listOf(
 						Attribute.HEALTH to 80f,
 						Attribute.MANA to 120f,
 						Attribute.INTELLECT to 1f,
-						Attribute.MANA_PER_SEC to 2f
+						Attribute.HEALTH_PER_SEC to 10f,
+						Attribute.MANA_PER_SEC to 2f,
+						Attribute.MOVEMENT_SPEED to 20f
 				))
 			/*EntityClass.WARLOCK -> EntityStats(
 					intellect = 10f,

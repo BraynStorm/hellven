@@ -25,6 +25,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
 	override val npcs: MutableMap<String, NPCEntity> = hashMapOf()
 	override val cells: Matrix<AbstractWorldCell> = worldLayout.cells
+	val spawnAreas: Set<SpawnArea>
 	private val playerController = PlayerController()
 	private val camera = gameScreen.worldStage.camera
 	
@@ -58,12 +59,18 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 			gameScreen.playerFrame.entity = player
 		}
 		
+		spawnAreas = worldLayout.spawnAreas
+		spawnAreas.forEach {
+			it.world = this
+		}
+		
 		println("" + player.location + "  " + pos)
 		pack()
 		
 		playerController.player = player
 		playerController.world = this
 	}
+	
 	
 	// TODO these shouldnt be here
 	private val tickerResource = Ticker(1.0F, { tickResource() }, true)
@@ -111,6 +118,8 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	}
 	
 	fun tickFieldGroup() {
+		spawnAreas.forEach(SpawnArea::tick)
+		
 		//TODO implement FieldGroup ticks (cell groups / spawn areas)
 	}
 	
@@ -123,10 +132,10 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		npcs.values.forEach(TickReceiverAura::tickAuras)
 	}
 	
-	fun tickMovement(){
+	fun tickMovement() {
 		player.tickMove()
-		npcs.values.forEach{
-			if(it is TickReceiverMovement)
+		npcs.values.forEach {
+			if (it is TickReceiverMovement)
 				it.tickMove()
 		}
 	}
@@ -171,6 +180,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	override fun keyUp(keycode: Int): Boolean {
 		return playerController.keyUp(keycode)
 	}
+	
 	override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 		if (button == Input.Buttons.LEFT) {
 			validate()
@@ -198,6 +208,8 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	}
 	
 	private var startDragCoords = Vector2()
+	
+	
 	override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
 		
 		if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
@@ -208,6 +220,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		
 		return false
 	}
+	
 }
 
 

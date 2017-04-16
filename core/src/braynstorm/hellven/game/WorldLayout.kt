@@ -1,17 +1,21 @@
 package braynstorm.hellven.game
 
+import braynstorm.hellven.Hellven
 import braynstorm.hellven.PixmapColorException
 import braynstorm.hellven.game.cells.AbstractWorldCell
+import braynstorm.hellven.game.cells.PlainWorldCell
 import braynstorm.hellven.game.cells.WorldCellFactory
 import com.badlogic.gdx.assets.loaders.PixmapLoader
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Json
 import com.badlogic.gdx.utils.JsonValue
 import com.ichipsea.kotlin.matrix.Matrix
 import com.ichipsea.kotlin.matrix.createMatrix
 import ktx.assets.loadOnDemand
+import ktx.math.div
 
 class WorldLayout : Json.Serializable {
 	enum class Variant {
@@ -35,6 +39,7 @@ class WorldLayout : Json.Serializable {
 	
 	lateinit var cells: Matrix<AbstractWorldCell>
 	val entities = mutableSetOf<PendingEntity>()
+	val spawnAreas = mutableSetOf<SpawnArea>()
 	
 	data class PendingEntity(val location: Vector2, val entity: Entity)
 	
@@ -51,7 +56,7 @@ class WorldLayout : Json.Serializable {
 		val pixmap = loadOnDemand(jsonData.getString("pixelmap"), PixmapLoader.PixmapParameter()).apply { finishLoading() }.asset
 		val data = jsonData.get("mapping")
 		
-		val colorMap = hashMapOf <Int, Variant>()
+		val colorMap = hashMapOf<Int, Variant>()
 		val dataMap = hashMapOf<Int, Any>()
 		
 		for (child in data.iterator()) {
@@ -63,14 +68,14 @@ class WorldLayout : Json.Serializable {
 			
 			// another map for settings to the objects
 			when (type) {
-				WorldLayout.Variant.NPC -> {
+				Variant.NPC       -> {
 					dataMap.put(intColor, child.getString("id"))
 				}
-				Variant.SPAWNAREA       -> {
-//					val spawnArea = SpawnArea()
-//					dataMap.put(intColor, )
+				Variant.SPAWNAREA -> {
+					val spawnArea = SpawnAreaDescription.valueOf(child.get("settings") ?: throw ParseException("No settings field for spawn area"))
+					dataMap.put(intColor, spawnArea)
 				}
-				else                    -> {
+				else              -> {
 				
 				}
 			}
@@ -104,11 +109,14 @@ class WorldLayout : Json.Serializable {
 					WorldCellFactory.createPlainCell()
 				}
 				WorldLayout.Variant.SPAWNAREA  -> {
-					
-					WorldCellFactory.createPlainCell()
+					val cell = WorldCellFactory.createPlainCell()
+					val spawnArea = SpawnArea(dataMap[pixel] as SpawnAreaDescription)
+					spawnArea += cell
+					spawnAreas += spawnArea
+					cell
 				}
 				WorldLayout.Variant.GAMEOBJECT -> {
-					
+					// TODO
 					WorldCellFactory.createSolidCell()
 				}
 			}
@@ -123,6 +131,28 @@ class WorldLayout : Json.Serializable {
 		fun fromFile(file: FileHandle): WorldLayout {
 			val json = Json()
 			return json.fromJson(WorldLayout::class.java, file)
+		}
+		
+	}
+	
+	
+}
+
+data class SpawnArea(val description: SpawnAreaDescription) {
+	val cells = mutableListOf<PlainWorldCell>()
+	
+	operator fun plusAssign(cell: PlainWorldCell) {
+		cells += cell
+	}
+	
+	lateinit var world: World
+	
+	fun tick() {
+		val currentMobsSpawned = cells.filter { it.hasEntity && it.entity!!.entityType != EntityType.PLAYER }.size
+		val cellCount = cells.size - 1
+		if (currentMobsSpawned < description.count) {
+			val cell = cells[MathUtils.random(0, cellCount )]
+			world.spawnEntity(cell.location.cpy() / Hellven.cellSizeF, NPCFactory.create(description.entityID, MathUtils.random(description.minlevel, description.maxlevel + 1)))
 		}
 		
 	}

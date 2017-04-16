@@ -8,25 +8,25 @@ enum class Attribute(val default: Float = 0f) {
 	
 	STAMINA(0f),
 	
-	HEALTH(1f),
+	HEALTH(0f),
 	RAGE(0f),
 	MANA(0f),
 	
 	//	WILLPOWER,
 	//	LIFEESSENCE,
 	
-	HEALTH_PER_SEC(1f),
+	HEALTH_PER_SEC(0f),
 	MANA_PER_SEC(0f),
 	
 	ARMOR(0f),
 	
-	WEAPON_DAMAGE_MIN(1f),
-	WEAPON_DAMAGE_MAX(1f),
+	WEAPON_DAMAGE_MIN(0f),
+	WEAPON_DAMAGE_MAX(0f),
 	
 	/**
 	 * Subtracted from moveTime
 	 */
-	MOVEMENT_SPEED(30f),
+	MOVEMENT_SPEED(0f),
 	
 	/**
 	 * Multiplier of castTime
@@ -37,7 +37,7 @@ enum class Attribute(val default: Float = 0f) {
 	/**
 	 * Subtracted from attackSpeed
 	 */
-	ATTACK_SPEED(1f),
+	ATTACK_SPEED(0f),
 	
 	/**
 	 * Bonus Magical damage

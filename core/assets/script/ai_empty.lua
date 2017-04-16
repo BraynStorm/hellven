@@ -11,3 +11,4 @@
 
 
 -- Does nothing, intended for Quest Givers
+function tick(entity) end

@@ -13,7 +13,7 @@ import ktx.assets.load
  * This object is used for the creation of any NPC.
  */
 object NPCFactory {
-	fun create(npcID: String): NPCEntity {
+	fun create(npcID: String, level:Int = 1): NPCEntity {
 		val description = let {
 			val fileName = "npc/$npcID.json"
 			if (Assets.manager.isLoaded(fileName))
@@ -29,7 +29,7 @@ object NPCFactory {
 				description.npcType,
 				description.npcClass,
 				description.getResourceMap()), TickReceiverMovement {
-			override var level: Int = 1
+			override var level: Int = level
 			override var calculatedAttributes: Attributes = Attributes()
 			
 			override var moving: Boolean = false
