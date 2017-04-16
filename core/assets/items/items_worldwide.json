@@ -1,5 +1,15 @@
 [
   {
+    "id": 100,
+    "usage": "junk",
+    "quality": "poor"
+  },
+  {
+    "id": 101,
+    "usage": "junk",
+    "quality": "poor"
+  },
+  {
     "id": 0,
     "usage": "equipment",
     "slot": "head",
@@ -229,7 +239,8 @@
     "quality": "rare",
     "attributes": {
       "armor": 30,
-      "strength": 4
+      "strength": 4,
+      "stamina": 2
     }
   },
   {
@@ -252,8 +263,8 @@
     "quality": "common",
     "attributes": {
       "armor": 11,
-      "stamina": 4,
-      "intellect": 2
+      "strength": 1,
+      "intellect": 1
     }
   },
   {
@@ -348,7 +359,9 @@
     "quality": "epic",
     "attributes": {
       "armor": 25,
-      "stamina": 4,
+      "stamina": 5,
+      "strenght": 5,
+      "intellect": 6,
       "agility": 3,
       "wisdom": 2,
       "health": 20,
@@ -372,7 +385,7 @@
     "quality": "epic",
     "attributes": {
       "armor": 20,
-      "stamina": 10,
+      "stamina": 12,
       "health": 70
     }
   },
