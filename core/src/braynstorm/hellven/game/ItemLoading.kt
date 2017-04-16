@@ -30,7 +30,7 @@ object Items {
 		
 		val usage   = enumValueOf<ItemUsage>(rawUsage.toUpperCase())
 		val quality = enumValueOf<ItemQuality>(rawQuality.toUpperCase())
-		val icon    = Hellven.gameSkin.getSprite(rawIcon)
+		val icon    = Hellven.gameSkin.getSprite("item_0") // TODO add the real item-icon here: rawIcon
 		// @formatter:on
 		
 		when (usage) {
