@@ -1,5 +1,5 @@
 {
-  "pixelmap": "worlds/world1.png",
+  "pixelmap": "worlds/world2.png",
   "mapping": {
     "000000": {
       "type": "solid"
@@ -30,7 +30,8 @@
       "type": "spawnArea",
       "settings": {
         "entity": "npc_w1_sorcerer",
-        "level": 1,
+        "minlevel":1,
+        "maxlevel":2,
         "count": 8
       }
     },

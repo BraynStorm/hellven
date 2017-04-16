@@ -2,7 +2,7 @@
   "ai": "ai_empty",
   "npc_type": "quest_giver",
   "npc_class": "warrior",
-  "texture": "npc_w1_questGiver1",
+  "texture": "npc_w1_questgiver1",
   "hostility": {
     "all": "friendly"
   },

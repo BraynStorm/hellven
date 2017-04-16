@@ -2,16 +2,18 @@
   "ai": "ai_mob",
   "npc_type": "normal_monster",
   "npc_class": "mage",
-  "texture": "npc_w1_sullivan",
+  "texture": "npc_w2_dragon",
   "hostility": {
     "player": "hostile",
     "all": "friendly"
   },
   "attributes": {
-    "health": 200,
-    "mana": 50
+    "health": 130,
+    "mana": 320
   },
   "abilities": {
-    "fireball": 1
+    "dragon's breath": 1
+  },
+  "loot": {
   }
 }

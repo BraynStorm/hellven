@@ -1,0 +1,18 @@
+{
+  "ai": "ai_mob",
+  "npc_type": "normal_monster",
+  "npc_class": "warrior",
+  "texture": "npc_w2_wolf",
+  "hostility": {
+    "player": "hostile",
+    "all": "friendly"
+  },
+  "attributes": {
+    "health": 150,
+    "rage": 0
+  },
+  "abilities": {
+  },
+  "loot": {
+  }
+}
