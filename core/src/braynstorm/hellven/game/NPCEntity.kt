@@ -1,6 +1,6 @@
 package braynstorm.hellven.game
 
-interface NPCEntity : Entity, TickReceiverNPCAI {
+interface NPCEntity : Entity, TickReceiverNPCAI,TickReceiverMovement {
 	
 	/**
 	 * The id of this entity.

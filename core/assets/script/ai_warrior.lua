@@ -10,6 +10,7 @@ local Direction = luajava.bindClass("braynstorm.hellven.game.Direction")
 
 -- TODO warrior AI
 function tick(entity)
+	print("Warrior Tick" .. entity:getLocation():toString())
 	local world = entity:getWorld()
 	local player = world:getPlayer()
 	
@@ -17,6 +18,8 @@ function tick(entity)
 	local playerLoc = player:getLocation()
 	
 	local manhattanDist = myLoc:sub(playerLoc)
+	manhattanDist.x = manhattanDist.x / 42
+	manhattanDist.y = manhattanDist.y / 42
 	
 	--[[local abilities = entity:getAbilities()
 	
@@ -24,7 +27,12 @@ function tick(entity)
 		-- TODO ABILITY CASTING
 		print(ability:getName() .. " is "..ability:canUse())
 	end
-	]]--
+	]] --
+	print(manhattanDist:len2())
+	if manhattanDist:len2() > 10 then
+		return
+	end
+	
 	
 	if manhattanDist.x < 1 then
 		world:entityTryMove(Direction.RIGHT, entity)

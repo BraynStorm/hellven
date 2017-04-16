@@ -159,8 +159,6 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		this.resources[Rage::class.java]?.capacity = base[Attribute.RAGE]
 		
 		calculatedAttributes = base
-		
-		println("MANAPERSEC: ${base[Attribute.MANA_PER_SEC]} -- $this")
 	}
 	
 	override fun containerChanged(newContainer: WorldCellEntityContainer?) {
