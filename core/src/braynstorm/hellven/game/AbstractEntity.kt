@@ -1,6 +1,6 @@
-
 package braynstorm.hellven.game
 
+import braynstorm.hellven.game.ability.Ability
 import braynstorm.hellven.game.ability.Damage
 import braynstorm.hellven.game.aura.AttributeChange
 import braynstorm.hellven.game.aura.Aura
@@ -10,7 +10,6 @@ import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.math.Vector2
 import java.util.EnumMap
 
 /**
@@ -40,6 +39,9 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		add(EquippableItemSlot(EquipmentSlotType.TRINKET))
 		add(EquippableItemSlot(EquipmentSlotType.TRINKET))
 	}
+	
+	override val abilities: MutableList<Ability> = arrayListOf()
+	
 	override final var inCombat: Boolean = false
 		set(value) {
 			if (value)
@@ -56,8 +58,8 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 			field = value
 		}
 	
-	var location = Vector2(-1f, -1f)
-		protected set
+	override val pixelLocation get() = container?.pixelLocation!!
+	override val cellLocation get() = container?.cellLocation!!
 	
 	var combatTimer = 0f
 	
@@ -169,8 +171,8 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		container?.releaseSilent(this)
 		container = newContainer
 		world = container?.world
-		location.x = newContainer?.location?.x ?: -1f
-		location.y = newContainer?.location?.y ?: -1f // #ElvisOP
+		pixelLocation.x = newContainer?.pixelLocation?.x ?: -1f
+		pixelLocation.y = newContainer?.pixelLocation?.y ?: -1f // #ElvisOP
 	}
 	
 	override fun tickResource() {

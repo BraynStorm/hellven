@@ -12,7 +12,7 @@ abstract class AbstractNPCEntity(
 		override val ai: String,
 		entityType: EntityType,
 		entityClass: EntityClass,
-		resourceMap: ResourceMap) : AbstractMovingEntity(entityType, entityClass,resourceMap), NPCEntity {
+		resourceMap: ResourceMap) : AbstractMovingEntity(entityType, entityClass, resourceMap), NPCEntity {
 	
 	
 	override val name: String

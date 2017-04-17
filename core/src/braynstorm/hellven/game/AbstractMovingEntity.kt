@@ -49,7 +49,7 @@ abstract class AbstractMovingEntity(entityType: EntityType,
 	
 	override fun draw(batch: Batch) {
 		if (movementBar.value != movementBar.maxValue) {
-			movementBar.setPosition(location.x, location.y)
+			movementBar.setPosition(pixelLocation.x, pixelLocation.y)
 			movementBar.setSize(Hellven.cellSizeF, 23f)
 			movementBar.draw(batch, 1f)
 		}

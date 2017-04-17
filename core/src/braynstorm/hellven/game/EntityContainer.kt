@@ -26,7 +26,8 @@ interface EntityContainer {
 	
 	val entity: Entity?
 	
-	val location: Vector2
+	val pixelLocation: Vector2
+	val cellLocation: Vector2
 	
 	val hasEntity: Boolean
 		get() = entity != null

@@ -11,7 +11,11 @@ class Ticker(val interval: Float = 1f, private val onTick: () -> Unit, var isTic
 		override fun run() {
 			if (isTicking) {
 				onTick.invoke()
+				passedTime += 1
 			}
 		}
 	}, interval, interval)
+	
+	var passedTime: Long = 0L
+	
 }

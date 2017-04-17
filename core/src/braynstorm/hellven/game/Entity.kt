@@ -7,13 +7,14 @@ import braynstorm.hellven.game.aura.AuraStack
 import braynstorm.hellven.game.entity.EntityClass
 import braynstorm.hellven.game.resource.Health
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
 
 /**
  * TODO Add class description
  * Created by Braynstorm on 3.4.2017 г..
  */
 interface Entity : Targetable, TickReceiverResource, TickReceiverAura {
-	
+	val abilities: MutableList<Ability>
 	/**
 	 * The current target of the entity.
 	 *
@@ -179,5 +180,15 @@ interface Entity : Targetable, TickReceiverResource, TickReceiverAura {
 	 * @return the slot to be used for [autoEquip]
 	 */
 	infix fun getAutoEquipSlot(slot: EquipmentSlotType): EquippableItemSlot
+	
+	/**
+	 * The location of entity in PIXELS
+	 */
+	val pixelLocation: Vector2
+	
+	/**
+	 * The location of the entity in CELLS
+	 */
+	val cellLocation:Vector2
 }
 

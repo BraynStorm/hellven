@@ -52,7 +52,7 @@ object Hellven : Game() {
 		ItemDescriptionLoader.load(Gdx.files.internal("items"))
 		
 		val themeSong = loadOnDemand("sounds/theme.mp3", MusicLoader.MusicParameter()).asset
-		themeSong.volume = 0.2f
+		themeSong.volume = 0.01f
 		thread(isDaemon = true, start = true) {
 			themeSong.play()
 		}

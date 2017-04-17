@@ -152,7 +152,7 @@ data class SpawnArea(val description: SpawnAreaDescription) {
 	fun tick() {
 		val currentMobsSpawned = cells.filter { it.hasEntity && it.entity!!.entityType != EntityType.PLAYER }.count()
 		val cellCount = cells.count() - 1
-		println("$id, Spawned: $currentMobsSpawned/${description.count}")
+//		println("$id, Spawned: $currentMobsSpawned/${description.count}")
 		if (currentMobsSpawned < description.count) {
 			val cell = cells[MathUtils.random(0, cellCount)]
 			world.spawnEntity(cell, NPCFactory.create(description.entityID, MathUtils.random(description.minlevel, description.maxlevel + 1)))

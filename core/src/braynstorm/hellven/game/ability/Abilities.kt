@@ -4,15 +4,73 @@ import braynstorm.hellven.Localization
 import braynstorm.hellven.game.Attribute
 import braynstorm.hellven.game.Entity
 import braynstorm.hellven.game.Hostility
+import braynstorm.hellven.game.World
 import braynstorm.hellven.game.aura.AuraStack
 import braynstorm.hellven.game.aura.Auras
+import braynstorm.hellven.game.entity.EntityClass
 import braynstorm.hellven.game.resource.Mana
 import com.badlogic.gdx.math.MathUtils
 
+interface Ability {
+	fun use(): Boolean
+}
 
 sealed class Abilities {
 	
-	class Fireball(val user: Entity, val rank: Int) {
+	class AutoAttack(val user: Entity) : Ability {
+		private var cooldown = 0L
+		private var lastUsed = 0L
+		private val range = 2f
+		
+		private var damage = 0f
+		
+		
+		fun calculate() {
+			val lowDmg = user[Attribute.WEAPON_DAMAGE_MIN]
+			val highDmg = user[Attribute.WEAPON_DAMAGE_MAX]
+			
+			val dmg = MathUtils.random(lowDmg, highDmg)
+			cooldown = user[Attribute.ATTACK_SPEED].toLong()
+			this.damage = dmg
+		}
+		
+		override fun use(): Boolean {
+			val time = (user.world as World).tickerNPCAI.passedTime
+			
+			if (lastUsed + cooldown > time) {
+				return false
+			}
+			
+			if (user.dead)
+				return false
+			
+			val target = user.target ?: return false
+			
+			if (user.entityClass != EntityClass.WARRIOR)
+				return false
+			
+			if (target.dead || user.getHostilityTowards(target) == Hostility.FRIENDLY)
+				return false
+			
+			calculate()
+			
+			println(target)
+			if (user.getHostilityTowards(target) == Hostility.FRIENDLY) {
+				return false
+			}
+			
+			if (user.cellLocation.dst2(target.cellLocation) > range) {
+				return false
+			}
+			
+			target.receiveDamage(Damage(Damage.Type.PHYSICAL, damage))
+			lastUsed = time
+			return true
+		}
+		
+	}
+	
+	class Fireball(val user: Entity, val rank: Int) : Ability {
 		private val baseUpperImpactDamageBound = 10f
 		private val baseLowerImpactDamageBound = 5f
 		private val baseBurnAuraTotalDamage = 2f
@@ -53,7 +111,7 @@ sealed class Abilities {
 		/**
 		 * Casts the spell
 		 */
-		fun use(): Boolean {
+		override fun use(): Boolean {
 			if (user.dead)
 				return false
 			

@@ -8,7 +8,8 @@ import com.badlogic.gdx.math.Vector2
  */
 interface WorldCell {
 	val world: GameWorld
-	val location: Vector2
+	var cellLocation: Vector2
+	var pixelLocation: Vector2
 	/**
 	 * Allows for easy traversal between cells.
 	 */

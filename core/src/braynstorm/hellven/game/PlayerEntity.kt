@@ -20,7 +20,7 @@ class PlayerEntity(entityClass: EntityClass,
 	override var calculatedAttributes: Attributes = Attributes()
 	
 	override fun draw(batch: Batch) {
-		texture.setPosition(location.x, location.y)
+		texture.setPosition(pixelLocation.x, pixelLocation.y)
 		texture.draw(batch)
 		super.draw(batch)
 	}

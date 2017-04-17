@@ -3,9 +3,15 @@ package braynstorm.hellven.game.cells
 import braynstorm.hellven.game.Entity
 import braynstorm.hellven.game.WorldCellEntityContainer
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 
-abstract class AbstractSingleEntityContainer(background: Drawable) : AbstractWorldCell(background), WorldCellEntityContainer {
+open class PlainWorldCell(background: Drawable) : AbstractWorldCell(background), WorldCellEntityContainer {
+	
+	
+	override fun toString(): String {
+		return "PlainWorldCell[x=$x, y=$y, entity=${this.entity}]"
+	}
 	
 	override var entity: Entity? = null
 		protected set
@@ -37,11 +43,6 @@ abstract class AbstractSingleEntityContainer(background: Drawable) : AbstractWor
 			super.draw(batch, parentAlpha)
 		
 		entity?.draw(batch)
-	}
-	
-	
-	override fun toString(): String {
-		return "AbstractSingleEntityContainer[x=$x, y=$y, entity=${this.entity}]"
 	}
 	
 	

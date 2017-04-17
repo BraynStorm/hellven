@@ -15,8 +15,9 @@ import java.util.EnumMap
  * Created by Braynstorm on 1.4.2017 г..
  */
 abstract class AbstractWorldCell(var background: Drawable) : Widget(), WorldCell {
-	override lateinit var location: Vector2
 	override lateinit var world: GameWorld
+	override lateinit var pixelLocation: Vector2
+	override lateinit var cellLocation: Vector2
 	
 	val neighbours: MutableMap<Direction, WorldCell?> = EnumMap(Direction::class.java)
 	
@@ -45,5 +46,4 @@ abstract class AbstractWorldCell(var background: Drawable) : Widget(), WorldCell
 		background.draw(batch, x, y, width, height)
 		
 	}
-	
 }

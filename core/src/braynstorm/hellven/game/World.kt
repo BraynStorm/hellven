@@ -35,7 +35,8 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		val pos = worldLayout.playerPosition
 		
 		cells.forEachIndexed { x, y, cell ->
-			cell.location = Vector2(x.toFloat() * Hellven.cellSizeF, (cells.cols - y.toFloat() - 1f) * Hellven.cellSizeF)
+			cell.pixelLocation = Vector2(x.toFloat() * Hellven.cellSizeF, (cells.cols - y.toFloat() - 1f) * Hellven.cellSizeF)
+			cell.cellLocation = Vector2(x.toFloat(), (cells.cols - y.toFloat() - 1f))
 			cell.color = Color.PINK
 			cell   [Direction.UP] = cells.getOrNull(x, y - 1)
 			cell [Direction.DOWN] = cells.getOrNull(x, y + 1)
@@ -65,7 +66,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 			it.world = this
 		}
 		
-		println("" + player.location + "  " + pos)
+		println("" + player.pixelLocation + "  " + pos)
 		pack()
 		
 		playerController.player = player
@@ -77,7 +78,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	private val tickerResource = Ticker(1.0F, { tickResource() }, true)
 	private val tickerGameObject = Ticker(0.1F, { tickGameObject() }, true)
 	private val tickerSpawnArea = Ticker(1F, { tickSpawnArea() }, true)
-	private val tickerMobAI = Ticker(1F, { tickNPCAI() }, true)
+	val tickerNPCAI = Ticker(0.2F, { tickNPCAI() }, true)
 	private val tickerAura = Ticker(0.1F, { tickAuras() }, true)
 	private val tickerMovement = Ticker(0.05F, { tickMovement() }, true)
 	
@@ -107,6 +108,13 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		
 		return cell.hasEntity
 		
+	}
+	
+	override fun entityTryMove(direction: Direction, entity: Entity): Boolean {
+		val container = entity.container ?: throw IllegalArgumentException("Entity has no container, so Direction.$direction is meaningless.")
+		if (container is WorldCell)
+			return container[direction]?.let { entityTryMoveTo(it, entity) } ?: return false
+		return false
 	}
 	
 	override fun draw(batch: Batch?, parentAlpha: Float) {
