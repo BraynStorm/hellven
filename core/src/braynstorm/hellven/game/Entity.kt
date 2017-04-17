@@ -78,7 +78,7 @@ interface Entity : Targetable, TickReceiverResource, TickReceiverAura {
 	/**
 	 * Is the entity dead
 	 */
-	val dead: Boolean
+	var dead: Boolean
 	/**
 	 * Is the entity in motion
 	 */
@@ -180,6 +180,9 @@ interface Entity : Targetable, TickReceiverResource, TickReceiverAura {
 	 * @return the slot to be used for [autoEquip]
 	 */
 	infix fun getAutoEquipSlot(slot: EquipmentSlotType): EquippableItemSlot
+	
+	fun isInCastStress(): Boolean
+	fun setInCastStress()
 	
 	/**
 	 * The location of entity in PIXELS

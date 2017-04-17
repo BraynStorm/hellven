@@ -12,6 +12,7 @@ interface GameWorld {
 	fun entityTryMoveTo(cell: WorldCell, entity: Entity): Boolean
 	fun enttiyTryMoveTo(x: Int, y: Int, entity: Entity): Boolean = entityTryMoveTo(cells[x, y], entity)
 	fun spawnEntity(x: Int, y: Int, entity: Entity): Boolean
+	fun reset()
 	
 }
 

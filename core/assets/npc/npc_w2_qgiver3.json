@@ -10,10 +10,7 @@
     "health": 870,
     "rage": 100
   },
-  "abilities": {
-    "mortal strike": 2,
-    "heroic strike": 1
-  },
+  "abilities": {  },
   "loot": {
   }
 }

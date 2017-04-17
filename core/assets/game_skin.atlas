@@ -4,11 +4,25 @@ size: 1024,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+ability_autoattack
+  rotate: false
+  xy: 644, 74
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
 ability_button_background
   rotate: false
   xy: 594, 68
   size: 48, 48
   orig: 48, 48
+  offset: 0, 0
+  index: -1
+ability_fireball
+  rotate: false
+  xy: 688, 74
+  size: 42, 42
+  orig: 42, 42
   offset: 0, 0
   index: -1
 icon_mage
@@ -55,7 +69,7 @@ icon_warrior
   index: -1
 item
   rotate: false
-  xy: 644, 74
+  xy: 732, 74
   size: 42, 42
   orig: 42, 42
   offset: 0, 0

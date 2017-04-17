@@ -10,10 +10,7 @@
     "health": 450,
     "mana": 970
   },
-  "abilities": {
-    "fireball": 2,
-    "frost nova": 1
-  },
+  "abilities": {  },
   "loot": {
   }
 }

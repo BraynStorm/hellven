@@ -38,7 +38,6 @@ object NPCFactory {
 			override var moving: Boolean = false
 			override var movementDirection: Direction = Direction.UP
 			
-			// TODO add the attributes form the json
 			override val baseAttributes: Attributes = description.attributes
 			
 			
@@ -53,6 +52,10 @@ object NPCFactory {
 					resources[Mana::class.java]!!.fill(resources[Mana::class.java]!!.capacity, true)
 				} else if (entityClass == EntityClass.WARRIOR) {
 					abilities.add(Abilities.AutoAttack(this))
+				}
+				
+				description.abilities.forEach { name, rank ->
+					abilities.add(Abilities.forName(name).create(this, rank))
 				}
 			}
 			

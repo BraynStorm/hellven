@@ -5,6 +5,7 @@ import braynstorm.hellven.game.ability.Ability
 import braynstorm.hellven.game.ability.FixedCostAbility
 import braynstorm.hellven.game.ability.FreeAbility
 import braynstorm.hellven.game.entity.EntityClass
+import braynstorm.hellven.game.resource.Mana
 import com.badlogic.gdx.graphics.g2d.Batch
 
 class PlayerEntity(entityClass: EntityClass,
@@ -27,6 +28,22 @@ class PlayerEntity(entityClass: EntityClass,
 	
 	init {
 		validateAttributes()
+		afterLevelUp()
+	}
+	
+	override var dead: Boolean = false
+		set(value) {
+			field = value
+			if (field) {
+				world?.reset()
+			}
+		}
+	
+	fun afterLevelUp() {
+		heal(health.capacity)
+		with(resources[Mana::class.java] ?: return) {
+			fill(capacity, true)
+		}
 	}
 	
 	override fun isCapableOfUsing(ability: Ability): Boolean {

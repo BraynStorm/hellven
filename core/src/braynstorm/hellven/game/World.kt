@@ -3,6 +3,8 @@ package braynstorm.hellven.game
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.contains
 import braynstorm.hellven.game.cells.AbstractWorldCell
+import braynstorm.hellven.game.entity.EntityClass
+import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.getOrNull
 import braynstorm.hellven.gui.ScreenGame
 import com.badlogic.gdx.Gdx
@@ -20,7 +22,7 @@ import ktx.math.minus
  * TODO Add class description
  * Created by Braynstorm on 1.4.2017 г..
  */
-class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), GameWorld, PartialInputProcessor {
+class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), GameWorld, PartialInputProcessor {
 	override val player: PlayerEntity = PlayerEntity(Realm.PlayerInfo.playerClass!!, Realm.PlayerInfo.playerName!!, level = 1)
 	
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
@@ -73,6 +75,23 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		playerController.world = this
 	}
 	
+	
+	override fun reset() {
+		//TODO reset the whole world as if we just entered it
+		
+		npcs.clear()
+		spawnEntity(worldLayout.playerPosition, player)
+		player.dead = false
+		player.heal(player.health.capacity)
+		if (player.entityClass == EntityClass.MAGE) {
+			val mana = player.resources[Mana::class.java]!!
+			mana.fill(mana.capacity, true)
+		}
+		
+		worldLayout.entities.forEach {
+			spawnEntity(it.location, it.entity)
+		}
+	}
 	
 	// TODO these shouldnt be here
 	private val tickerResource = Ticker(1.0F, { tickResource() }, true)
@@ -142,6 +161,17 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 	
 	fun tickNPCAI() {
 		npcs.forEach(NPCEntity::tickNPCAI)
+		npcs.removeIf {
+			// despawn dead ones
+			if (it.dead) {
+				it.container?.releaseSilent(it)
+				if (player.target == it) {
+					gameScreen.targetFrame.entity = null
+					player.target = null
+				}
+				true
+			} else false
+		}
 	}
 	
 	fun tickAuras() {

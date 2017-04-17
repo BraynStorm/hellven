@@ -10,9 +10,7 @@
     "health": 150,
     "mana": 300
   },
-  "abilities": {
-    "fireball": 1
-  },
+  "abilities": { },
   "loot": {
   }
 }

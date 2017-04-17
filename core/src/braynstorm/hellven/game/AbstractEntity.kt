@@ -62,6 +62,7 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 	override val cellLocation get() = container?.cellLocation!!
 	
 	var combatTimer = 0f
+	var spellCastTimer = 0
 	
 	val walkTime = 0f
 	
@@ -177,12 +178,26 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 	
 	override fun tickResource() {
 		if (!dead) {
-			if (inCombat)
+			if (inCombat) {
 				combatTimer--
-			if (MathUtils.isEqual(combatTimer, 0f))
+			}
+			
+			spellCastTimer--
+			
+			if (MathUtils.isEqual(combatTimer, 0f)) {
 				inCombat = false
+			}
+			
 			resources.values.forEach(TickReceiverResource::tickResource)
 		}
+	}
+	
+	override fun setInCastStress() {
+		spellCastTimer = 7
+	}
+	
+	override fun isInCastStress(): Boolean {
+		return spellCastTimer > 0
 	}
 	
 	override fun tickAuras() {
@@ -276,7 +291,9 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 	
 	override fun receiveDamage(damage: Damage) {
 		if (!dead) {
-			health.drain(damage.calculateAgainst(this), true)
+			if (health.drain(damage.calculateAgainst(this), true) > 0) {
+				damage.source.inCombat = true
+			}
 			
 			if (health.empty) {
 				dead = true

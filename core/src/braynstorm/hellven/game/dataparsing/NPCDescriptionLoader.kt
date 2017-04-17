@@ -25,15 +25,18 @@ internal class RawNPCDescription(val id: String,
                                  val npcType: String,
                                  val npcClass: String,
                                  val hostility: Map<String, String>,
-                                 val attributes: Map<String, Float>) {
+                                 val attributes: Map<String, Float>,
+                                 val abilities: Map<String, Int>
+) {
 	fun parse() = NPCDescription(
 			id,
 			ai,
-			Hellven.Atlas.npc.createSprite(texture)?: Hellven.Atlas.npc.createSprite("npc_w1_sullivan") /*throw RuntimeException("Texture not found $texture")*/,
+			Hellven.Atlas.npc.createSprite(texture) ?: Hellven.Atlas.npc.createSprite("npc_w1_sullivan") /*throw RuntimeException("Texture not found $texture")*/,
 			EntityType.valueOf(npcType.toUpperCase()),
 			EntityClass.valueOf(npcClass.toUpperCase()),
 			hostility.mapValues { Hostility.valueOf(it.value.toUpperCase()) },
-			Attributes.valueOf(attributes)
+			Attributes.valueOf(attributes),
+			abilities
 			//			null // TODO fix this, add items
 	)
 }
@@ -46,20 +49,19 @@ class NPCDescription(
 		val npcType: EntityType,
 		val npcClass: EntityClass,
 		val hostility: Map<String, Hostility>,
-		val attributes: Attributes
+		val attributes: Attributes,
+		val abilities: Map<String, Int>
 //		TODO addItems. val loot: Array<Item>?
 ) {
 	
 	
 	fun getResourceMap(): ResourceMap {
-		return when(npcClass){
+		return when (npcClass) {
 			EntityClass.UNKNOWN -> TODO()
 			EntityClass.WARRIOR -> hashMapOf<Class<*>, ResourcePool>(Health::class.java to Health(0f), Rage::class.java to Rage(0f))
 			EntityClass.MAGE    -> hashMapOf<Class<*>, ResourcePool>(Health::class.java to Health(0f), Mana::class.java to Mana(0f))
 		}
 	}
-	
-	
 }
 
 /**
@@ -97,6 +99,13 @@ class NPCDescriptionLoader : SynchronousAssetLoader<NPCDescription, NPCDescripti
 						jsonData.get("attributes").forEach {
 							map += it.name to it.asFloat()
 						}
+					}
+					map
+				},
+				let{
+					val map = hashMapOf<String, Int>()
+					jsonData.get("abilities").forEach {
+						map += it.name to it.asInt()
 					}
 					map
 				}
