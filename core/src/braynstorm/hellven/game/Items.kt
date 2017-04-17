@@ -1,139 +1,64 @@
 package braynstorm.hellven.game
 
-import braynstorm.hellven.Localization
-import com.badlogic.gdx.graphics.g2d.Sprite
+import braynstorm.hellven.Hellven
+import com.badlogic.gdx.utils.IntMap
+import com.badlogic.gdx.utils.JsonValue
 
-/**
- * TODO Add class description
- * Created by Braynstorm on 3.4.2017 г..
- */
-
-interface Item {
-	/**
-	 * Unique identification of the item.
-	 *
-	 * Useful for saving/loading.
-	 */
-	val id: Int
-	val usage: ItemUsage
-	val quality: ItemQuality
+object Items {
+	val items: IntMap<Item> = IntMap(100)
 	
-	/**
-	 * Localized string.
-	 */
-	val name: String
-	val icon: Sprite
-	
-	fun getItemStack(amount: Int = 1): ItemStack
-	
-	fun compareByNames(item: Item): Int
-	fun compareByIDs(item: Item): Int
-}
-
-interface ItemEquippable : Item {
-	/**
-	 * In which slot does this item get equipped.
-	 */
-	val slot: EquipmentSlotType
-	
-	/**
-	 * The attributes that this item affects.
-	 */
-	val attributes: Attributes
-}
-
-/*
-interface ItemMutator {
-	val sortingNumber: Int
-}
-
-interface ItemNameMutator : ItemMutator {
-	val prefix: String get () = ""
-	val suffix: String get () = ""
-}
-
-interface ItemStatMutator : ItemMutator {
-	val stats: Attributes
-}
-*/
-
-abstract class AbstractItem(final override val id: Int,
-                            final override val usage: ItemUsage,
-                            final override val quality: ItemQuality,
-                            override val icon: Sprite) : Item {
-	override val name: String get() = Localization.formatItem("i.$id.name")
-	
-	override fun compareByIDs(item: Item): Int = id.compareTo(item.id)
-	override fun compareByNames(item: Item): Int = name.compareTo(item.name)
-	
-	override fun getItemStack(amount: Int): ItemStack {
-		return ItemStack(this, amount)
+	operator fun get(id: Int): Item {
+		return items[id] ?: throw IndexOutOfBoundsException("Index=$id, Size=${items.size}")
 	}
 	
 	
-}
-
-/*
-
-class MutatedItem(id: Int, type: ItemType, quality: ItemQuality, mutators: List<ItemMutator> = emptyList()) : AbstractItem(id) {
-	var mutators = mutators
-		private set
+	fun has(id: Int): Boolean = items.containsKey(id)
 	
-	init {
-		this.mutators = mutators.sortedBy { it.sortingNumber }
-	}
-	
-	override val name: String
-		get() {
-			val prefix = StringBuilder()
-			val suffix = StringBuilder()
-			
-			@Suppress("UNCHECKED_CAST") // The cast is always going to succeed
-			val nameMutators = (mutators.filter { it is ItemNameMutator } as? Collection<ItemNameMutator>)!!
-			
-			nameMutators.forEach {
-				if (it.prefix.isNotEmpty()) {
-					prefix.append(it.prefix)
-					prefix.append(' ')
+	fun load(json: JsonValue) {
+		// @formatter:off
+		val id          = json.get("id")        ?.asInt()       ?: throwException("id", "Any positive integer, but it has to be unique amongst all items")
+		
+		if(has(id)) {
+			throw ParseException("ID ($id) is not unique, shared with item: ${this[id]}")
+		}
+		
+		val rawUsage    = json.get("usage")     ?.asString()    ?: throwException("usage", ItemUsage.values())
+		val rawQuality  = json.get("quality")   ?.asString()    ?: throwException("quality", ItemQuality.values())
+		val rawIcon     = json.get("icon")      ?.asString()    ?: "item_$id"
+		
+		val usage   = enumValueOf<ItemUsage>(rawUsage.toUpperCase())
+		val quality = enumValueOf<ItemQuality>(rawQuality.toUpperCase())
+		val icon    = Hellven.gameSkin.getSprite("item_0") // TODO add the real item-icon here: rawIcon
+		// @formatter:on
+		
+		when (usage) {
+			ItemUsage.EQUIPMENT -> {
+				val rawSlot = json.get("slot")?.asString() ?: throwException("slot", EquipmentSlotType.values())
+				val rawAttributes = json.get("attributes") ?: throwException("attributes", Attribute.values())
+				val rawAttrMap = hashMapOf<String, Float>()
+				val slot = enumValueOf<EquipmentSlotType>(rawSlot.toUpperCase())
+				
+				rawAttributes.forEach {
+					rawAttrMap[it.name] = it.asFloat()
 				}
 				
-				if (it.suffix.isNotEmpty()) {
-					suffix.append(' ')
-					suffix.append(it.suffix)
-				}
+				val attributes = Attributes.valueOf(rawAttrMap)
+				
+				items.put(id, GenericEquipment(id, quality, icon, slot, attributes))
 			}
-			
-			return Localization.formatItem("i.$id.name", prefix.toString(), suffix.toString())
+			else                -> {
+				items.put(id, GenericItem(id, usage, quality, icon))
+			}
 		}
-	
-	override fun compareByNames(item: Item): Int {
-		return name.compareTo(item.name, true)
+		
+		
 	}
 	
-	override fun compareByIDs(item: Item): Int {
-		return id.compareTo(item.id)
+	private inline fun throwException(fieldName: String, validValues: Array<*>): Nothing {
+		throwException(fieldName, validValues.joinToString())
 	}
 	
-	override fun getItemStack(amount: Int): ItemStack {
-		return ItemStack(this, amount)
-	}
-	
-}
-*/
-
-class GenericItem(id: Int, usage: ItemUsage, quality: ItemQuality, icon: Sprite) : AbstractItem(id, usage, quality, icon) {
-	override fun toString(): String {
-		return "GenericItem[id=$id, usage=$usage, quality=$quality]"
-	}
-}
-
-class GenericEquipment(id: Int, quality: ItemQuality, icon: Sprite,
-                       override val slot: EquipmentSlotType,
-                       override val attributes: Attributes) : AbstractItem(id, ItemUsage.EQUIPMENT, quality, icon), ItemEquippable {
-	/**
-	 * Ignores the [amount] because equippable items cant have more than 1 in their stacks
-	 */
-	override fun getItemStack(amount: Int): EquippableItemStack {
-		return super.getItemStack(1).toEquippable()
+	private inline fun throwException(fieldName: String, validValues: String): Nothing {
+		throw ParseException("Item description has no ${fieldName.toUpperCase()} field. Valid values for this field: $validValues.")
 	}
 }

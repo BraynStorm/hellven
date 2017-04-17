@@ -1,6 +1,7 @@
 package braynstorm.hellven.game.aura
 
 import braynstorm.hellven.game.Attribute
+import braynstorm.hellven.game.AttributeChange
 import braynstorm.hellven.game.Entity
 import braynstorm.hellven.game.ability.Damage
 

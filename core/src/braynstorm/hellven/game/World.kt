@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.ichipsea.kotlin.matrix.Matrix
 import com.ichipsea.kotlin.matrix.forEachIndexed
 import ktx.math.minus
+import java.util.Collections
 
 
 /**
@@ -26,7 +27,7 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 	override val player: PlayerEntity = PlayerEntity(Realm.PlayerInfo.playerClass!!, Realm.PlayerInfo.playerName!!, level = 1)
 	
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
-	override val npcs: MutableSet<NPCEntity> = hashSetOf()
+	override val npcs: MutableSet<NPCEntity> = Collections.synchronizedSet(hashSetOf())
 	override val cells: Matrix<AbstractWorldCell> = worldLayout.cells
 	val spawnAreas: Set<SpawnArea>
 	private val playerController = PlayerController()
