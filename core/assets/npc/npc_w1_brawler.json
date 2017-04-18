@@ -2,7 +2,7 @@
   "ai": "ai_warrior",
   "npc_type": "normal_monster",
   "npc_class": "warrior",
-  "texture": "npc_w1_brawler",
+  "texture": "brawler",
   "hostility": {
     "player": "hostile",
     "all": "friendly"

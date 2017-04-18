@@ -1,13 +1,27 @@
 
 npc.png
-size: 128,128
+size: 256,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+brawler
+  rotate: false
+  xy: 100, 56
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
 npc_w1_sullivan
   rotate: false
   xy: 2, 2
   size: 96, 96
   orig: 96, 96
+  offset: 0, 0
+  index: -1
+sorcerer
+  rotate: false
+  xy: 100, 12
+  size: 42, 42
+  orig: 42, 42
   offset: 0, 0
   index: -1
