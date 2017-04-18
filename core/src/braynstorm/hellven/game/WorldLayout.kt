@@ -4,6 +4,8 @@ import braynstorm.hellven.PixmapColorException
 import braynstorm.hellven.game.cells.AbstractWorldCell
 import braynstorm.hellven.game.cells.PlainWorldCell
 import braynstorm.hellven.game.cells.WorldCellFactory
+import braynstorm.hellven.game.dataparsing.GameObjectDescription
+import braynstorm.hellven.game.dataparsing.RawGameObjectDescription
 import com.badlogic.gdx.assets.loaders.PixmapLoader
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
@@ -37,9 +39,11 @@ class WorldLayout : Json.Serializable {
 	
 	lateinit var cells: Matrix<AbstractWorldCell>
 	val entities = mutableSetOf<PendingEntity>()
+	val gameObjects = mutableSetOf<PendingGameObject>()
 	val spawnAreas = mutableSetOf<SpawnArea>()
 	
-	data class PendingEntity(val location: Vector2, val entity: Entity)
+	data class PendingEntity(val cell: PlainWorldCell, val entity: Entity)
+	data class PendingGameObject(val cell: GameObjectContainer, val gameObject: GameObject)
 	
 	override fun write(json: Json?) {
 		TODO("write is not implemented")
@@ -66,16 +70,21 @@ class WorldLayout : Json.Serializable {
 			
 			// another map for settings to the objects
 			when (type) {
-				Variant.NPC       -> {
+				Variant.NPC        -> {
 					dataMap.put(intColor, child.getString("id"))
 				}
-				Variant.SPAWNAREA -> {
+				Variant.SPAWNAREA  -> {
 					val spawnAreaDescription = SpawnAreaDescription.valueOf(child.get("settings") ?: throw ParseException("No settings field for spawn area"))
 					val spawnArea = SpawnArea(spawnAreaDescription)
 					spawnAreas += spawnArea
 					dataMap.put(intColor, spawnArea)
 				}
-				else              -> {
+				Variant.GAMEOBJECT -> {
+					val gameObject = RawGameObjectDescription.valueOf(child).parse()
+					dataMap.put(intColor, gameObject)
+					
+				}
+				else               -> {
 				
 				}
 			}
@@ -90,33 +99,36 @@ class WorldLayout : Json.Serializable {
 			val t = colorMap[pixel] ?: throw PixmapColorException("Pixmap has unspecified color: #%06X, position: x=$x, y=$y, pixmap=${jsonData.getString("pixelmap")}", pixel)
 			
 			when (t) {
-				WorldLayout.Variant.EMPTY      -> {
+				Variant.EMPTY      -> {
 					WorldCellFactory.createPlainCell()
 				}
-				WorldLayout.Variant.SOLID      -> {
+				Variant.SOLID      -> {
 					WorldCellFactory.createSolidCell()
 				}
-				WorldLayout.Variant.NPC        -> {
+				Variant.NPC        -> {
+					val cell = WorldCellFactory.createPlainCell()
 					val entityID = dataMap[pixel] as String
 					if (entityID.isNotEmpty()) {
-						entities += PendingEntity(Vector2(x.toFloat(), y.toFloat()), NPCFactory.create(entityID))
-						println("Adding")
+						entities += PendingEntity(cell, NPCFactory.create(entityID))
 					}
-					WorldCellFactory.createPlainCell()
+					cell
 				}
-				WorldLayout.Variant.PLAYER     -> {
+				Variant.PLAYER     -> {
 					playerPosition = Vector2(x.toFloat(), y.toFloat())
 					WorldCellFactory.createPlainCell()
 				}
-				WorldLayout.Variant.SPAWNAREA  -> {
+				Variant.SPAWNAREA  -> {
 					val cell = WorldCellFactory.createPlainCell()
 					val spawnArea = dataMap[pixel] as SpawnArea
 					spawnArea += cell
 					cell
 				}
-				WorldLayout.Variant.GAMEOBJECT -> {
+				Variant.GAMEOBJECT -> {
 					// TODO
-					WorldCellFactory.createSolidCell()
+					val cell = WorldCellFactory.createGameObjectCell()
+					val gameObject = (dataMap[pixel] as GameObjectDescription).createGameObject()
+					gameObjects += PendingGameObject(cell, gameObject)
+					cell
 				}
 			}
 			

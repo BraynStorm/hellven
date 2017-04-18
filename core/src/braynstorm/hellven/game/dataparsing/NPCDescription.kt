@@ -22,7 +22,7 @@ class NPCDescription(
 	
 	fun getResourceMap(): ResourceMap {
 		return when (npcClass) {
-			EntityClass.UNKNOWN -> TODO()
+			EntityClass.UNKNOWN -> hashMapOf<Class<*>, ResourcePool>(Health::class.java to Health(0f), Mana::class.java to Mana(0f), Rage::class.java to Rage(0f))
 			EntityClass.WARRIOR -> hashMapOf<Class<*>, ResourcePool>(Health::class.java to Health(0f), Rage::class.java to Rage(0f))
 			EntityClass.MAGE    -> hashMapOf<Class<*>, ResourcePool>(Health::class.java to Health(0f), Mana::class.java to Mana(0f))
 		}

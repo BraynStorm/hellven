@@ -2,8 +2,11 @@ package braynstorm.hellven
 
 import braynstorm.hellven.Hellven.Atlas.npc
 import braynstorm.hellven.game.ItemDescriptionLoader
+import braynstorm.hellven.game.World
+import braynstorm.hellven.game.WorldLayout
 import braynstorm.hellven.game.dataparsing.NPCDescription
 import braynstorm.hellven.game.dataparsing.NPCDescriptionLoader
+import braynstorm.hellven.gui.ScreenGame
 import braynstorm.hellven.gui.ScreenMainMenu
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
@@ -28,6 +31,14 @@ object Hellven : Game() {
 	var cellSizeF: Float = 42f
 	val cellSizeI: Int = Hellven.cellSizeF.toInt()
 	
+	val worlds: MutableMap<String, WorldLayout> = HashMap()
+	
+	var gameScreen: ScreenGame? = null
+	
+	fun getWorld(id: String): World? {
+		return World(worlds[id] ?: return null, gameScreen!!)
+	}
+	
 	override fun create() {
 		val ui = loadOnDemand("locale/ui", I18NBundleLoader.I18NBundleParameter()).asset
 		val npcs = loadOnDemand("locale/npcs", I18NBundleLoader.I18NBundleParameter()).asset
@@ -51,6 +62,12 @@ object Hellven : Game() {
 		// load all items
 		ItemDescriptionLoader.load(Gdx.files.internal("items"))
 		
+		// Load worlds
+		Gdx.files.internal("worlds/").list(".json").forEach {
+			worlds += it.nameWithoutExtension() to WorldLayout.fromFile(it)
+		}
+		
+		
 		val themeSong = loadOnDemand("sounds/theme.mp3", MusicLoader.MusicParameter()).asset
 		themeSong.volume = 0.01f
 		thread(isDaemon = true, start = true) {
@@ -66,4 +83,5 @@ object Hellven : Game() {
 		
 		
 	}
+	
 }

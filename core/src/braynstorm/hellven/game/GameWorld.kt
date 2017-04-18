@@ -4,9 +4,8 @@ import com.ichipsea.kotlin.matrix.Matrix
 
 interface GameWorld {
 	val player: PlayerEntity
-	val npcs: MutableSet<NPCEntity>
+	val entities: MutableSet<NPCEntity>
 	val cells: Matrix<WorldCell>
-	
 	
 	fun entityTryMove(direction: Direction, entity: Entity): Boolean
 	fun entityTryMoveTo(cell: WorldCell, entity: Entity): Boolean

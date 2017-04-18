@@ -2,7 +2,6 @@ package braynstorm.hellven.game
 
 import braynstorm.hellven.game.ability.Ability
 import braynstorm.hellven.game.ability.Damage
-import braynstorm.hellven.game.AttributeChange
 import braynstorm.hellven.game.aura.Aura
 import braynstorm.hellven.game.aura.AuraStack
 import braynstorm.hellven.game.entity.EntityClass
@@ -10,6 +9,7 @@ import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
 import java.util.EnumMap
 
 /**
@@ -58,8 +58,8 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 			field = value
 		}
 	
-	override val pixelLocation get() = container?.pixelLocation!!
-	override val cellLocation get() = container?.cellLocation!!
+	override val pixelLocation get() = container?.pixelLocation ?: Vector2.Zero
+	override val cellLocation get() = container?.cellLocation ?: Vector2.Zero
 	
 	var combatTimer = 0f
 	var spellCastTimer = 0
@@ -172,8 +172,6 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		container?.releaseSilent(this)
 		container = newContainer
 		world = container?.world
-		pixelLocation.x = newContainer?.pixelLocation?.x ?: -1f
-		pixelLocation.y = newContainer?.pixelLocation?.y ?: -1f // #ElvisOP
 	}
 	
 	override fun tickResource() {

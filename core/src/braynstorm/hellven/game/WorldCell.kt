@@ -1,15 +1,12 @@
 package braynstorm.hellven.game
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.math.Vector2
 
 /**
  * A cell form the game world. [World]
  */
-interface WorldCell {
+interface WorldCell : HasLocation {
 	val world: GameWorld
-	var cellLocation: Vector2
-	var pixelLocation: Vector2
 	/**
 	 * Allows for easy traversal between cells.
 	 */

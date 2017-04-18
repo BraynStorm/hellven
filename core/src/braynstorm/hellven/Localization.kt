@@ -28,7 +28,7 @@ object Localization {
 	infix fun formatItem(key: String) = currentLoc.items.format(key)!!
 	infix fun formatAbiliy(key: String) = currentLoc.abilities.format(key)!!
 	
-	fun formatUI(key: String, vararg args: Number) = currentLoc.ui.format(key, *args)!!
+	fun formatUI(key: String, vararg args: Any) = currentLoc.ui.format(key, *args)!!
 	fun formatNPC(key: String, vararg args: Number) = currentLoc.npcs.format(key, *args)!!
 	fun formatItem(key: String, vararg args: Any) = currentLoc.items.format(key, *args)!!
 	fun formatAbility(key: String, vararg args: Number): String = currentLoc.abilities.format(key, *args)!!

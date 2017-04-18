@@ -3,14 +3,12 @@ package braynstorm.hellven.game
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.contains
 import braynstorm.hellven.game.cells.AbstractWorldCell
-import braynstorm.hellven.game.entity.EntityClass
-import braynstorm.hellven.game.resource.Mana
+import braynstorm.hellven.game.cells.GameObjectWorldCell
 import braynstorm.hellven.getOrNull
 import braynstorm.hellven.gui.ScreenGame
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.ichipsea.kotlin.matrix.Matrix
@@ -27,14 +25,22 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 	override val player: PlayerEntity = PlayerEntity(Realm.PlayerInfo.playerClass!!, Realm.PlayerInfo.playerName!!, level = 1)
 	
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
-	override val npcs: MutableSet<NPCEntity> = Collections.synchronizedSet(hashSetOf())
+	override val entities: MutableSet<NPCEntity> = Collections.synchronizedSet(hashSetOf())
 	override val cells: Matrix<AbstractWorldCell> = worldLayout.cells
-	val spawnAreas: Set<SpawnArea>
+	val spawnAreas: MutableSet<SpawnArea>
 	private val playerController = PlayerController()
 	private val camera = gameScreen.worldStage.camera
 	
+	var destroyed = false
+	
+	private var destroyAi = false
+	private var destroyMovement = false
+	private var destroyAuras = false
+	private var destroyGameObjects = false
+	private var destroyResources = false
+	private var destroySpawnAreas = false
+	
 	init {
-		
 		val pos = worldLayout.playerPosition
 		
 		cells.forEachIndexed { x, y, cell ->
@@ -56,7 +62,7 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 		}
 		
 		worldLayout.entities.forEach {
-			spawnEntity(it.location, it.entity)
+			spawnEntity(it.cell, it.entity)
 		}
 		
 		if (spawnEntity(pos.x.toInt(), pos.y.toInt(), player)) {
@@ -64,10 +70,16 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 			gameScreen.playerFrame.entity = player
 		}
 		
-		spawnAreas = worldLayout.spawnAreas
+		worldLayout.gameObjects.forEach {
+			spawnGameObject(it.cell as GameObjectWorldCell, it.gameObject)
+		}
+		
+		spawnAreas = HashSet(worldLayout.spawnAreas)
 		spawnAreas.forEach {
 			it.world = this
 		}
+		
+		
 		
 		println("" + player.pixelLocation + "  " + pos)
 		pack()
@@ -76,31 +88,42 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 		playerController.world = this
 	}
 	
-	
-	override fun reset() {
-		//TODO reset the whole world as if we just entered it
+	fun destroy() {
+		destroyed = true
+		tickerMovement.stop()
+		tickerNPCAI.stop()
+		tickerGameObject.stop()
+		tickerResource.stop()
+		tickerAura.stop()
+		tickerSpawnArea.stop()
 		
-		npcs.clear()
-		spawnEntity(worldLayout.playerPosition, player)
-		player.dead = false
-		player.heal(player.health.capacity)
-		if (player.entityClass == EntityClass.MAGE) {
-			val mana = player.resources[Mana::class.java]!!
-			mana.fill(mana.capacity, true)
+		while (!(destroyMovement && destroyAi && destroyGameObjects && destroyResources && destroyAuras && destroySpawnAreas)) {
+			println("Move $destroyMovement")
+			println("Ai $destroyAi")
+			println("GO $destroyGameObjects")
+			println("Res $destroyResources")
+			println("Aura $destroyAuras")
+			println("SA $destroySpawnAreas")
 		}
 		
-		worldLayout.entities.forEach {
-			spawnEntity(it.location, it.entity)
-		}
+		entities.clear()
+		spawnAreas.clear()
+		
+		player.containerChanged(null)
 	}
 	
-	// TODO these shouldnt be here
-	private val tickerResource = Ticker(1.0F, { tickResource() }, true)
-	private val tickerGameObject = Ticker(0.1F, { tickGameObject() }, true)
-	private val tickerSpawnArea = Ticker(1F, { tickSpawnArea() }, true)
-	val tickerNPCAI = Ticker(0.2F, { tickNPCAI() }, true)
-	private val tickerAura = Ticker(0.1F, { tickAuras() }, true)
-	private val tickerMovement = Ticker(0.05F, { tickMovement() }, true)
+	
+	override fun reset() {
+		destroy()
+		Realm.switchWorld("world1")
+	}
+	
+	private val tickerMovement = Ticker(0.05F, { tickMovement() })
+	private val tickerAura = Ticker(0.10F, { tickAuras() })
+	private val tickerGameObject = Ticker(0.10F, { tickGameObject() })
+	val tickerNPCAI = Ticker(0.20F, { tickNPCAI() })
+	private val tickerResource = Ticker(1.00F, { tickResource() })
+	private val tickerSpawnArea = Ticker(1.00F, { tickSpawnArea() })
 	
 	override fun getPrefHeight(): Float {
 		return Hellven.cellSizeF * cells.rows
@@ -137,32 +160,35 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 		return false
 	}
 	
-	override fun draw(batch: Batch?, parentAlpha: Float) {
-		super.draw(batch, parentAlpha)
-//
-//		spawnAreas.forEach { it.cells.forEach {
-//			it.draw(batch, parentAlpha)
-//		} }
+	fun spawnGameObject(cell: GameObjectWorldCell, gameObject: GameObject) {
+		cell.hold(gameObject)
 	}
 	
 	fun tickResource() {
-		npcs.forEach(TickReceiverResource::tickResource)
-		player.tickResource()
+		destroyResources = false
+		entities.forEach(NPCEntity::tickResource)
+		
+		if (!destroyed)
+			player.tickResource()
+		destroyResources = true
 	}
 	
 	fun tickGameObject() {
+		destroyGameObjects = false
 		// TODO implement GameObject Ticks.
+		destroyGameObjects = true
 	}
 	
 	fun tickSpawnArea() {
+		destroySpawnAreas = false
 		spawnAreas.forEach(SpawnArea::tick)
-		
-		//TODO implement FieldGroup ticks (cell groups / spawn areas)
+		destroySpawnAreas = true
 	}
 	
 	fun tickNPCAI() {
-		npcs.forEach(NPCEntity::tickNPCAI)
-		npcs.removeIf {
+		destroyAi = false
+		entities.removeIf {
+			it.tickNPCAI()
 			// despawn dead ones
 			if (it.dead) {
 				it.container?.releaseSilent(it)
@@ -171,18 +197,32 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 					player.target = null
 				}
 				true
-			} else false
+			} else {
+				false
+			}
+		}
+		destroyAi = true
+		if (player.dead) {
+			reset()
 		}
 	}
 	
 	fun tickAuras() {
+		destroyAuras = false
 		player.tickAuras()
-		npcs.forEach(TickReceiverAura::tickAuras)
+		
+		entities.forEach(NPCEntity::tickAuras)
+		destroyAuras = true
 	}
 	
 	fun tickMovement() {
+		destroyMovement = false
+		if (destroyed)
+			return
+		
 		player.tickMove()
-		npcs.forEach(NPCEntity::tickMove)
+		entities.forEach(NPCEntity::tickMove)
+		destroyMovement = true
 	}
 	
 	/**
@@ -204,7 +244,7 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 		cell.hold(entity)
 		
 		if (entity is NPCEntity)
-			npcs += entity
+			entities += entity
 		
 		return cell.hasEntity
 	}
@@ -240,6 +280,7 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 				val entity = (cell as? EntityContainer)?.entity
 				gameScreen.targetFrame.entity = entity
 				player.target = entity
+				val gameObject = (cell as? GameObjectContainer)?.onInteract(player)
 				println(entity)
 				return true
 			}

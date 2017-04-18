@@ -29,5 +29,9 @@ object WorldCellFactory {
 		return SolidWorldCell(cellBackgroundSolid)
 	}
 	
+	fun createGameObjectCell(): GameObjectWorldCell {
+		return GameObjectWorldCell(cellBackgroundPlain)
+	}
+	
 }
 

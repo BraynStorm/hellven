@@ -32,12 +32,6 @@ class PlayerEntity(entityClass: EntityClass,
 	}
 	
 	override var dead: Boolean = false
-		set(value) {
-			field = value
-			if (field) {
-				world?.reset()
-			}
-		}
 	
 	fun afterLevelUp() {
 		heal(health.capacity)

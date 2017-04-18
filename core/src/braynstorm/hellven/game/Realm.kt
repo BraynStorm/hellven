@@ -1,5 +1,6 @@
 package braynstorm.hellven.game
 
+import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.entity.EntityClass
 
 /**
@@ -12,5 +13,13 @@ object Realm {
 	object PlayerInfo {
 		var playerClass: EntityClass? = null
 		var playerName: String? = null
+	}
+	
+	fun switchWorld(worldID: String) {
+		world?.destroy()
+		Thread.sleep(100)
+		val newWorld = Hellven.getWorld(worldID)
+		world = newWorld
+		Hellven.gameScreen?.setWorld(world!!)
 	}
 }

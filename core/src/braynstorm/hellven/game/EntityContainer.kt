@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2
 /**
  * Something that can contain an entity
  */
-interface EntityContainer {
+interface EntityContainer : HasLocation {
 	
 	/**
 	 * Tells the container to 'hold' this entity.
@@ -25,9 +25,6 @@ interface EntityContainer {
 	fun releaseSilent(entity: Entity)
 	
 	val entity: Entity?
-	
-	val pixelLocation: Vector2
-	val cellLocation: Vector2
 	
 	val hasEntity: Boolean
 		get() = entity != null

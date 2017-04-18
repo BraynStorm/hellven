@@ -13,6 +13,9 @@ class PlayerController : PartialInputProcessor {
 	lateinit var player: PlayerEntity
 	lateinit var world: World
 	override fun keyDown(keycode: Int): Boolean {
+		if (world.destroyed)
+			return false
+		
 		when (keycode) {
 			Input.Keys.W     -> {
 				player.moving = true
@@ -58,7 +61,7 @@ class PlayerController : PartialInputProcessor {
 				// damage
 				val target = player.target
 				if (target != null) {
-				
+					
 				}
 				println("Target: $target")
 			}
@@ -70,6 +73,8 @@ class PlayerController : PartialInputProcessor {
 	}
 	
 	override fun keyUp(keycode: Int): Boolean {
+		if (world.destroyed)
+			return false
 		if (!(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A) ||
 				Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D))) {
 			player.moving = false

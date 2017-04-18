@@ -1,8 +1,7 @@
 package braynstorm.hellven.gui
 
-import braynstorm.hellven.game.Realm
+import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.World
-import braynstorm.hellven.game.WorldLayout
 import braynstorm.hellven.gui.elements.AbilityBar
 import braynstorm.hellven.gui.elements.FrameEntity
 import com.badlogic.gdx.Gdx
@@ -12,7 +11,6 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import ktx.scene2d.Scene2DSkin
 
 /**
  * TODO Add class description
@@ -20,27 +18,31 @@ import ktx.scene2d.Scene2DSkin
  */
 class ScreenGame : ScreenAdapter() {
 	
-	lateinit var staticUiStage: Stage
-	lateinit var worldStage: Stage
-	lateinit var entityFramesTable: Table
+	var staticUiStage: Stage
+	var worldStage: Stage
+	var entityFramesTable: Table
 	
-	lateinit var playerFrame: FrameEntity
-	lateinit var targetFrame: FrameEntity
-	lateinit var abilityBar: AbilityBar
+	 var playerFrame: FrameEntity
+	 var targetFrame: FrameEntity
+	 var abilityBar: AbilityBar
+	
+	init {
+		Hellven.gameScreen = this
+		
+		staticUiStage = Stage(ScreenViewport())
+		worldStage = Stage(ScreenViewport())
+		
+		playerFrame = FrameEntity()
+		targetFrame = FrameEntity()
+		
+		
+		abilityBar = AbilityBar()
+		entityFramesTable = Table(Hellven.skin)
+	}
 	
 	override fun show() {
 		super.show()
 		
-		staticUiStage = Stage(ScreenViewport())
-		worldStage = Stage(ScreenViewport())
-
-		playerFrame = FrameEntity()
-		targetFrame = FrameEntity()
-		
-		Realm.world = World(WorldLayout.fromFile(Gdx.files.internal("worlds/world1.json")), this)
-		
-		
-		entityFramesTable = Table(Scene2DSkin.defaultSkin)
 		entityFramesTable.setFillParent(true)
 		entityFramesTable.zIndex = 100
 		
@@ -53,14 +55,12 @@ class ScreenGame : ScreenAdapter() {
 		worldStage.camera.position.x = -worldStage.width / 2f
 		worldStage.camera.position.y = -worldStage.height / 2f
 //		staticUiStage.setDebugAll(true)
-		Gdx.input.inputProcessor = InputMultiplexer(staticUiStage, Realm.world)
 		
 		
-		abilityBar = AbilityBar()
+		
 		abilityBar.setFillParent(true)
 		staticUiStage.addActor(entityFramesTable)
 		staticUiStage.addActor(abilityBar)
-		worldStage.addActor(Realm.world)
 	}
 	
 	override fun render(delta: Float) {
@@ -78,6 +78,12 @@ class ScreenGame : ScreenAdapter() {
 		super.resize(width, height)
 		staticUiStage.viewport.update(width, height, true)
 		worldStage.viewport.update(width, height, true)
+	}
+	
+	fun setWorld(world: World) {
+		worldStage.clear()
+		worldStage.addActor(world)
+		Gdx.input.inputProcessor = InputMultiplexer(staticUiStage, world)
 	}
 	
 }

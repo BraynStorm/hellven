@@ -16,10 +16,10 @@ class SpawnAreaDescription(
 	companion object {
 		fun valueOf(json: JsonValue): SpawnAreaDescription {
 			// @formatter:off
-			val minLevel = (json.get("minlevel") ?: json.get("level"))?.asInt()    ?: throw ParseException("No level/minlevel specified for SpawnArea")
-			val maxLevel = (json.get("max")      ?: json.get("level"))?.asInt()    ?: throw ParseException("No level/maxlevel specified for SpawnArea")
-			val entityID = (json.get("entity")                       )?.asString() ?: throw ParseException("No entity specified for SpawnArea")
-			val count    = (json.get("count")                        )?.asInt()    ?: throw ParseException("No count specified for SpawnArea")
+			val minLevel = (json.get("minlevel")    ?: json.get("level"))?.asInt()      ?: throw ParseException("No level/minlevel specified for SpawnArea")
+			val maxLevel = (json.get("maxlevel")    ?: json.get("level"))?.asInt()      ?: throw ParseException("No level/maxlevel specified for SpawnArea")
+			val entityID = (json.get("entity")                          )?.asString()   ?: throw ParseException("No entity specified for SpawnArea")
+			val count    = (json.get("count")                           )?.asInt()      ?: throw ParseException("No count specified for SpawnArea")
 			// @formatter:on
 			
 			return SpawnAreaDescription(minLevel,maxLevel, entityID, count)

@@ -25,6 +25,13 @@ ability_fireball
   orig: 42, 42
   offset: 0, 0
   index: -1
+go_teleporter
+  rotate: false
+  xy: 732, 74
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
 icon_mage
   rotate: false
   xy: 198, 52
@@ -69,7 +76,7 @@ icon_warrior
   index: -1
 item
   rotate: false
-  xy: 732, 74
+  xy: 776, 74
   size: 42, 42
   orig: 42, 42
   offset: 0, 0

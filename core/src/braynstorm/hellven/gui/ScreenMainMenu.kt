@@ -1,8 +1,8 @@
 package braynstorm.hellven.gui
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.entity.EntityClass
 import braynstorm.hellven.game.Realm
+import braynstorm.hellven.game.entity.EntityClass
 import com.badlogic.gdx.*
 import com.badlogic.gdx.assets.loaders.TextureLoader
 import com.badlogic.gdx.graphics.GL20
@@ -74,8 +74,11 @@ class ScreenMainMenu : ScreenAdapter(), InputProcessor {
 	
 	fun goToGameScreen() {
 		Realm.PlayerInfo.playerName = nameField.text
-		Realm.PlayerInfo.playerClass = EntityClass.MAGE
-		Hellven.screen = ScreenGame()
+		Realm.PlayerInfo.playerClass = EntityClass.MAGE // TODO class switcher
+		
+		Hellven.screen = ScreenGame().apply{
+			Realm.switchWorld("world1") // TODO
+		}
 	}
 	
 	

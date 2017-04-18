@@ -32,6 +32,12 @@ sealed class Abilities {
 				"mortal strike" to MortalStrike.factory,
 				"dragon's breath" to DragonsBreath.factory,
 				"rend" to Rend.factory,
+				"arcane blast" to ArcaneBlast.factory,
+				//TODO
+				"cleave" to ArcaneBlast.factory,
+				"fire blast" to ArcaneBlast.factory,
+				"enrage" to ArcaneBlast.factory,
+				"overpower" to ArcaneBlast.factory,
 				"arcane blast" to ArcaneBlast.factory
 		)
 		
