@@ -17,7 +17,6 @@ object Realm {
 	
 	fun switchWorld(worldID: String) {
 		world?.destroy()
-		Thread.sleep(100)
 		val newWorld = Hellven.getWorld(worldID)
 		world = newWorld
 		Hellven.gameScreen?.setWorld(world!!)

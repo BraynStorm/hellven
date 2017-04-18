@@ -21,8 +21,7 @@ class Teleporter(val newWorld: String) : AbstractGameObject("teleporter", Hellve
 		if (entity.inCombat) {
 			return
 		}
-		
-		println("ASDF TELEPORTER TO $newWorld")
+		if(entity.cellLocation.dst(cellLocation) <= 1)
 		Realm.switchWorld(newWorld)
 	}
 	

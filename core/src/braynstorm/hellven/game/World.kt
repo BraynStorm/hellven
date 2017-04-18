@@ -21,7 +21,7 @@ import java.util.Collections
  * TODO Add class description
  * Created by Braynstorm on 1.4.2017 г..
  */
-class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), GameWorld, PartialInputProcessor {
+class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), GameWorld, PartialInputProcessor {
 	override val player: PlayerEntity = PlayerEntity(Realm.PlayerInfo.playerClass!!, Realm.PlayerInfo.playerName!!, level = 1)
 	
 	// TODO separate the world into regions. and use these MutableCollections in them, rather than here.
@@ -39,6 +39,13 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 	private var destroyGameObjects = false
 	private var destroyResources = false
 	private var destroySpawnAreas = false
+	
+	private val tickerMovement = Ticker(0.05F, { tickMovement() })
+	private val tickerAura = Ticker(0.10F, { tickAuras() })
+	private val tickerGameObject = Ticker(0.10F, { tickGameObject() })
+	val tickerNPCAI = Ticker(0.20F, { tickNPCAI() })
+	private val tickerResource = Ticker(1.00F, { tickResource() })
+	private val tickerSpawnArea = Ticker(1.00F, { tickSpawnArea() })
 	
 	init {
 		val pos = worldLayout.playerPosition
@@ -63,6 +70,10 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 		
 		worldLayout.entities.forEach {
 			spawnEntity(it.cell, it.entity)
+		}
+		
+		if(player.dead){
+			player.heal(player.health.capacity)
 		}
 		
 		if (spawnEntity(pos.x.toInt(), pos.y.toInt(), player)) {
@@ -114,16 +125,8 @@ class World(val worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(),
 	
 	
 	override fun reset() {
-		destroy()
 		Realm.switchWorld("world1")
 	}
-	
-	private val tickerMovement = Ticker(0.05F, { tickMovement() })
-	private val tickerAura = Ticker(0.10F, { tickAuras() })
-	private val tickerGameObject = Ticker(0.10F, { tickGameObject() })
-	val tickerNPCAI = Ticker(0.20F, { tickNPCAI() })
-	private val tickerResource = Ticker(1.00F, { tickResource() })
-	private val tickerSpawnArea = Ticker(1.00F, { tickSpawnArea() })
 	
 	override fun getPrefHeight(): Float {
 		return Hellven.cellSizeF * cells.rows
