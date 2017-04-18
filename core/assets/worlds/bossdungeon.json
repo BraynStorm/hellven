@@ -1,5 +1,5 @@
 {
-  "pixelmap": "worlds/world2.png",
+  "pixelmap": "worlds/bossdungeon.png",
   "mapping": {
     "000000": {
       "type": "solid"
@@ -28,7 +28,7 @@
         "count": 2
       }
     },
-    "FF73FD": {
+    "7B0000": {
       "type": "npc",
       "id": "npc_w2_boss"
     },
