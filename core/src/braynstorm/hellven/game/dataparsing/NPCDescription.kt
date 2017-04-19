@@ -1,7 +1,11 @@
 package braynstorm.hellven.game.dataparsing
 
 import braynstorm.hellven.game.*
+import braynstorm.hellven.game.api.ResourcePool
+import braynstorm.hellven.game.attributes.Attributes
 import braynstorm.hellven.game.entity.EntityClass
+import braynstorm.hellven.game.entity.EntityType
+import braynstorm.hellven.game.entity.Hostility
 import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage

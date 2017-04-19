@@ -1,8 +1,8 @@
 package braynstorm.hellven.gui.elements
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.ItemStack
-import braynstorm.hellven.game.PlayerEntity
+import braynstorm.hellven.game.items.ItemStack
+import braynstorm.hellven.game.entity.PlayerEntity
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.ui.Window

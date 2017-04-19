@@ -1,9 +1,9 @@
 package braynstorm.hellven.game.dataparsing
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.Attributes
-import braynstorm.hellven.game.EntityType
-import braynstorm.hellven.game.Hostility
+import braynstorm.hellven.game.attributes.Attributes
+import braynstorm.hellven.game.entity.EntityType
+import braynstorm.hellven.game.entity.Hostility
 import braynstorm.hellven.game.entity.EntityClass
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetLoaderParameters

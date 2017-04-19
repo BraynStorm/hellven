@@ -1,9 +1,9 @@
 package braynstorm.hellven.game.aura
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.Attribute
-import braynstorm.hellven.game.AttributeChange
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.attributes.Attribute
+import braynstorm.hellven.game.attributes.AttributeChange
+import braynstorm.hellven.game.api.Entity
 import braynstorm.hellven.game.ability.Damage
 import com.badlogic.gdx.graphics.g2d.Sprite
 

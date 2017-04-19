@@ -1,7 +1,7 @@
 package braynstorm.hellven.game.cells
 
-import braynstorm.hellven.game.Entity
-import braynstorm.hellven.game.WorldCellEntityContainer
+import braynstorm.hellven.game.api.Entity
+import braynstorm.hellven.game.api.WorldCellEntityContainer
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 

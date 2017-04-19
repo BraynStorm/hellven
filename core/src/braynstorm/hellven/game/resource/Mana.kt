@@ -1,7 +1,7 @@
 package braynstorm.hellven.game.resource
 
 import braynstorm.hellven.game.AbstractResourcePool
-import braynstorm.hellven.game.Attribute
+import braynstorm.hellven.game.attributes.Attribute
 import com.badlogic.gdx.graphics.Color
 
 /**

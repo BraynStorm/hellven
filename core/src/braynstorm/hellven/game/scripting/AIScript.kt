@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.scripting
 
-import braynstorm.hellven.game.NPCEntity
+import braynstorm.hellven.game.api.NPCEntity
 
 interface AIScript {
 	/**

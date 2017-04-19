@@ -1,5 +1,8 @@
 package braynstorm.hellven.game
 
+import braynstorm.hellven.game.api.ResourcePool
+import braynstorm.hellven.game.attributes.Attribute
+import braynstorm.hellven.game.attributes.Attributes
 import braynstorm.hellven.game.entity.EntityClass
 import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana

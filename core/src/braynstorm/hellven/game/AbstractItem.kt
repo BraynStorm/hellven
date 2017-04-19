@@ -1,6 +1,10 @@
 package braynstorm.hellven.game
 
 import braynstorm.hellven.Localization
+import braynstorm.hellven.game.api.Item
+import braynstorm.hellven.game.items.ItemQuality
+import braynstorm.hellven.game.items.ItemStack
+import braynstorm.hellven.game.items.ItemUsage
 import com.badlogic.gdx.graphics.g2d.Sprite
 
 abstract class AbstractItem(final override val id: Int,

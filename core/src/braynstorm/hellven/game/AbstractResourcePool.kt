@@ -1,6 +1,9 @@
 package braynstorm.hellven.game
 
 import braynstorm.hellven.game.Utils.FloatMath.epsilonEqual
+import braynstorm.hellven.game.api.Entity
+import braynstorm.hellven.game.api.ResourceObserver
+import braynstorm.hellven.game.api.ResourcePool
 import braynstorm.hellven.game.observation.ObserverSet
 import com.badlogic.gdx.graphics.Color
 

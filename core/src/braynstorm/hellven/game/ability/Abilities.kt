@@ -2,10 +2,15 @@ package braynstorm.hellven.game.ability
 
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.Localization
-import braynstorm.hellven.game.*
+import braynstorm.hellven.game.attributes.Attribute
+import braynstorm.hellven.game.ParseException
+import braynstorm.hellven.game.Ticker
+import braynstorm.hellven.game.World
+import braynstorm.hellven.game.api.Entity
 import braynstorm.hellven.game.aura.AuraStack
 import braynstorm.hellven.game.aura.Auras
 import braynstorm.hellven.game.entity.EntityClass
+import braynstorm.hellven.game.entity.Hostility
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -351,9 +356,9 @@ sealed class Abilities {
 		private var lastUsed = 0L
 		
 		
-		private val baseDamage = 20f
+		private val baseDamage = 30f
 		private val baseManaCost = 30f
-		private val cooldown = 10L
+		private val cooldown = 20L
 		
 		var damage = 0f
 		var manaCost = 30f

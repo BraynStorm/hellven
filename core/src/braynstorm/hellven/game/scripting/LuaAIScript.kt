@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.scripting
 
-import braynstorm.hellven.game.NPCEntity
+import braynstorm.hellven.game.api.NPCEntity
 import org.luaj.vm2.LuaError
 import org.luaj.vm2.LuaFunction
 import org.luaj.vm2.lib.jse.CoerceJavaToLua

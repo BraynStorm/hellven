@@ -2,8 +2,8 @@ package braynstorm.hellven.game.dataparsing
 
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.Localization
-import braynstorm.hellven.game.Entity
-import braynstorm.hellven.game.GameObject
+import braynstorm.hellven.game.api.Entity
+import braynstorm.hellven.game.api.GameObject
 import braynstorm.hellven.game.ParseException
 import braynstorm.hellven.game.gameobjects.AbstractGameObject
 import braynstorm.hellven.game.gameobjects.Teleporter

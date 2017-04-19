@@ -1,6 +1,9 @@
 package braynstorm.hellven.game
 
 import braynstorm.hellven.game.ability.Abilities
+import braynstorm.hellven.game.api.PartialInputProcessor
+import braynstorm.hellven.game.attributes.Direction
+import braynstorm.hellven.game.entity.PlayerEntity
 import braynstorm.hellven.game.scripting.Scripts
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
@@ -44,15 +47,15 @@ class PlayerController : PartialInputProcessor {
 			
 			Input.Keys.NUM_1 -> {
 				val fireball = Abilities.Fireball(player, 1)
-				println(fireball.name)
-				println(fireball.description)
+//				println(fireball.name)
+//				println(fireball.description)
 				fireball.use()
 			}
 			Input.Keys.NUM_2 -> {
-				val fireball = Abilities.Fireball(player, 2)
-				println(fireball.name)
-				println(fireball.description)
-				fireball.use()
+				val arcaneBlast = Abilities.ArcaneBlast(player, 1)
+//				println(arcaneBlast.name)
+//				println(arcaneBlast.description)
+				arcaneBlast.use()
 			}
 			Input.Keys.NUM_3 -> {
 				player.target?.health?.fill(1f, true)

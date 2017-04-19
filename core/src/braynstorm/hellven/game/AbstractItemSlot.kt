@@ -1,5 +1,8 @@
 package braynstorm.hellven.game
 
+import braynstorm.hellven.game.api.ItemSlot
+import braynstorm.hellven.game.items.ItemStack
+
 abstract class AbstractItemSlot<T : ItemStack>(itemStack: T? = null) : ItemSlot<T> {
 	override var itemStack: T? = itemStack
 		protected set

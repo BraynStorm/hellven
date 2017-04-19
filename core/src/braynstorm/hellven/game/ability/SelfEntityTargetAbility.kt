@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.ability
 
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.api.Entity
 
 interface SelfEntityTargetAbility : EntityTargetAbility {
 	fun use(user: Entity)

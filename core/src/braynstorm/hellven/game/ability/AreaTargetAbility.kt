@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.ability
 
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.api.Entity
 import com.badlogic.gdx.math.Vector2
 
 interface AreaTargetAbility : Ability {

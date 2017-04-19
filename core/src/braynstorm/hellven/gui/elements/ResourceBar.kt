@@ -1,7 +1,7 @@
 package braynstorm.hellven.gui.elements
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.ResourcePool
+import braynstorm.hellven.game.api.ResourcePool
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont

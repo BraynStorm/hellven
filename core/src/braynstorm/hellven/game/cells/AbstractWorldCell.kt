@@ -1,9 +1,9 @@
 package braynstorm.hellven.game.cells
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.Direction
-import braynstorm.hellven.game.GameWorld
-import braynstorm.hellven.game.WorldCell
+import braynstorm.hellven.game.attributes.Direction
+import braynstorm.hellven.game.api.GameWorld
+import braynstorm.hellven.game.api.WorldCell
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Widget

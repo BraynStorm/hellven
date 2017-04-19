@@ -2,8 +2,11 @@ package braynstorm.hellven.game
 
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.contains
+import braynstorm.hellven.game.api.*
+import braynstorm.hellven.game.attributes.Direction
 import braynstorm.hellven.game.cells.AbstractWorldCell
 import braynstorm.hellven.game.cells.GameObjectWorldCell
+import braynstorm.hellven.game.entity.PlayerEntity
 import braynstorm.hellven.getOrNull
 import braynstorm.hellven.gui.ScreenGame
 import com.badlogic.gdx.Gdx

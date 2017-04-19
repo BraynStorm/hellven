@@ -1,7 +1,7 @@
 package braynstorm.hellven.game.ability
 
-import braynstorm.hellven.game.Attribute
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.attributes.Attribute
+import braynstorm.hellven.game.api.Entity
 
 data class Damage(val source: Entity, val type: Type, val amount: Float) {
 	enum class Type {

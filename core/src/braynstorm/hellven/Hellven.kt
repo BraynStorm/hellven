@@ -1,11 +1,11 @@
 package braynstorm.hellven
 
 import braynstorm.hellven.Hellven.Atlas.npc
-import braynstorm.hellven.game.ItemDescriptionLoader
 import braynstorm.hellven.game.World
 import braynstorm.hellven.game.WorldLayout
 import braynstorm.hellven.game.dataparsing.NPCDescription
 import braynstorm.hellven.game.dataparsing.NPCDescriptionLoader
+import braynstorm.hellven.game.items.ItemDescriptionLoader
 import braynstorm.hellven.gui.ScreenGame
 import braynstorm.hellven.gui.ScreenMainMenu
 import com.badlogic.gdx.Game

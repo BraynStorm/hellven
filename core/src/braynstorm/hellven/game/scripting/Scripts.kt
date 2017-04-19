@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.scripting
 
-import braynstorm.hellven.game.Direction
+import braynstorm.hellven.game.attributes.Direction
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import org.luaj.vm2.LuaTable

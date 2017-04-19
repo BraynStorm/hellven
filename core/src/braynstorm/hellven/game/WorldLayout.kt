@@ -1,15 +1,18 @@
 package braynstorm.hellven.game
 
 import braynstorm.hellven.PixmapColorException
+import braynstorm.hellven.game.api.Entity
+import braynstorm.hellven.game.api.GameObject
+import braynstorm.hellven.game.api.GameObjectContainer
 import braynstorm.hellven.game.cells.AbstractWorldCell
 import braynstorm.hellven.game.cells.PlainWorldCell
 import braynstorm.hellven.game.cells.WorldCellFactory
 import braynstorm.hellven.game.dataparsing.GameObjectDescription
 import braynstorm.hellven.game.dataparsing.RawGameObjectDescription
+import braynstorm.hellven.game.entity.NPCFactory
 import com.badlogic.gdx.assets.loaders.PixmapLoader
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Json
 import com.badlogic.gdx.utils.JsonValue
@@ -142,32 +145,6 @@ class WorldLayout : Json.Serializable {
 		fun fromFile(file: FileHandle): WorldLayout {
 			val json = Json()
 			return json.fromJson(WorldLayout::class.java, file)
-		}
-		
-	}
-	
-	
-}
-
-var ID: Int = 0
-
-data class SpawnArea(val description: SpawnAreaDescription) {
-	val id = ID++
-	private val cells = mutableListOf<PlainWorldCell>()
-	
-	lateinit var world: World
-	
-	operator fun plusAssign(cell: PlainWorldCell) {
-		cells.add(cell)
-	}
-	
-	fun tick() {
-		val currentMobsSpawned = cells.filter { it.hasEntity && it.entity!!.entityType != EntityType.PLAYER }.count()
-		val cellCount = cells.count() - 1
-//		println("$id, Spawned: $currentMobsSpawned/${description.count}")
-		if (currentMobsSpawned < description.count) {
-			val cell = cells[MathUtils.random(0, cellCount)]
-			world.spawnEntity(cell, NPCFactory.create(description.entityID, MathUtils.random(description.minlevel, description.maxlevel + 1)))
 		}
 		
 	}

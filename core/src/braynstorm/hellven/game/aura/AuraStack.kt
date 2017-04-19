@@ -1,6 +1,6 @@
 package braynstorm.hellven.game.aura
 
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.api.Entity
 import braynstorm.hellven.game.Utils
 
 /**

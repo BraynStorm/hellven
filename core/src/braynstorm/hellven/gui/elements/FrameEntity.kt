@@ -1,7 +1,7 @@
 package braynstorm.hellven.gui.elements
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.Entity
+import braynstorm.hellven.game.api.Entity
 import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage
