@@ -39,7 +39,7 @@
       fontColor: {hex: FFFFFF}
     },
     mainscreen: {
-      font: Nevis32
+      font: default
     }
     about: {
       font: Nevis18
@@ -48,7 +48,7 @@
   }
   com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
     default: {
-      font: Nevis14
+      font: default
       fontColor: {hex: D5D5D5}
       background: textfield_background,
       cursor: textfield_cursor,
@@ -57,7 +57,7 @@
   }
   com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
     default: {
-      font: Nevis14
+      font: default
       up: button_normal
       down: button_down
       over: button_hover

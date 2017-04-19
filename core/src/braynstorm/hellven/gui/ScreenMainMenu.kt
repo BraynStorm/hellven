@@ -1,6 +1,7 @@
 package braynstorm.hellven.gui
 
 import braynstorm.hellven.Hellven
+import braynstorm.hellven.Localization
 import braynstorm.hellven.game.Realm
 import braynstorm.hellven.game.entity.EntityClass
 import com.badlogic.gdx.*
@@ -27,8 +28,8 @@ class ScreenMainMenu : ScreenAdapter(), InputProcessor {
 	private val stage: Stage = Stage(ScreenViewport())
 	private val table: KTableWidget = KTableWidget(Scene2DSkin.defaultSkin)
 	
-	private val startGameButton = TextButton("Start Game", Scene2DSkin.defaultSkin)
-	private val exitGameButton = TextButton("Exit", Scene2DSkin.defaultSkin)
+	private val startGameButton = TextButton(Localization.formatUI("startGameLbl"), Scene2DSkin.defaultSkin)
+	private val exitGameButton = TextButton(Localization.formatUI("exitLbl"), Scene2DSkin.defaultSkin)
 	private val nameField = TextField("", Scene2DSkin.defaultSkin)
 	
 	private val background = loadOnDemand("images/background.png", TextureLoader.TextureParameter())
@@ -56,7 +57,7 @@ class ScreenMainMenu : ScreenAdapter(), InputProcessor {
 			center()
 			background = TextureRegionDrawable(TextureRegion(this@ScreenMainMenu.background.asset))
 			add(KTableWidget(Scene2DSkin.defaultSkin).apply {
-				add(Label("Name: ", Scene2DSkin.defaultSkin, "mainscreen")).left().width(150f)
+				add(Label(Localization.formatUI("nameLbl"), Scene2DSkin.defaultSkin, "mainscreen")).left().width(150f)
 				add(nameField).width(250f).height(45f).grow()
 			}).colspan(2)
 			row().spaceTop(40f)

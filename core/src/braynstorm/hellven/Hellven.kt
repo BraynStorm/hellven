@@ -10,13 +10,13 @@ import braynstorm.hellven.gui.ScreenGame
 import braynstorm.hellven.gui.ScreenMainMenu
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.assets.loaders.I18NBundleLoader
 import com.badlogic.gdx.assets.loaders.MusicLoader
 import com.badlogic.gdx.assets.loaders.SkinLoader
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.I18NBundle
 import ktx.assets.Assets
 import ktx.assets.loadOnDemand
 import ktx.scene2d.Scene2DSkin
@@ -41,12 +41,30 @@ object Hellven : Game() {
 	}
 	
 	override fun create() {
-		val ui = loadOnDemand("locale/ui", I18NBundleLoader.I18NBundleParameter()).asset
-		val npcs = loadOnDemand("locale/npcs", I18NBundleLoader.I18NBundleParameter()).asset
-		val items = loadOnDemand("locale/items", I18NBundleLoader.I18NBundleParameter()).asset
-		val abilities = loadOnDemand("locale/abilities", I18NBundleLoader.I18NBundleParameter()).asset
-		Localization.loadLocale(LocalizedBundle(ui, npcs, items, abilities))
-		Localization.setCurrentLocale(Locale.getDefault())
+		val uiFile = Gdx.files.internal("locale/ui")
+		val npcsFile = Gdx.files.internal("locale/npcs")
+		val itemsFile = Gdx.files.internal("locale/items")
+		val abilitiesFile = Gdx.files.internal("locale/abilities")
+		val bgLoc = Locale("bg", "BG")
+		val enLoc = Locale.ENGLISH
+		Locale.setDefault(enLoc)
+		
+		Localization.loadLocale(LocalizedBundle(
+				I18NBundle.createBundle(uiFile, enLoc),
+				I18NBundle.createBundle(npcsFile, enLoc),
+				I18NBundle.createBundle(itemsFile, enLoc),
+				I18NBundle.createBundle(abilitiesFile, enLoc)
+		))
+		Localization.loadLocale(LocalizedBundle(
+				I18NBundle.createBundle(uiFile, bgLoc),
+				I18NBundle.createBundle(npcsFile, bgLoc),
+				I18NBundle.createBundle(itemsFile, bgLoc),
+				I18NBundle.createBundle(abilitiesFile, bgLoc)
+		))
+//		Localization.setCurrentLocale(Locale.getDefault())
+		
+		Localization.setCurrentLocale(bgLoc)
+		
 		
 		Assets.manager.setLoader(NPCDescription::class.java, NPCDescriptionLoader())
 		

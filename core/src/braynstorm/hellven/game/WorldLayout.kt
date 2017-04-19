@@ -40,6 +40,8 @@ class WorldLayout : Json.Serializable {
 	var playerPosition: Vector2 = Vector2()
 		private set
 	
+	// TODO world layout should have separate entity, spawnArea and gameobjects so new world creations of old worldLayouts dont mess up and have artifacts from previous lives.
+	// basically WorldReset is fucked up cuz of these collections having direct entityies and spawnareas and not just descriptions
 	lateinit var cells: Matrix<AbstractWorldCell>
 	val entities = mutableSetOf<PendingEntity>()
 	val gameObjects = mutableSetOf<PendingGameObject>()

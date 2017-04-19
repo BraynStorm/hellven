@@ -9,7 +9,9 @@
   },
   "attributes": {
     "health": 150,
-    "rage": 0
+    "rage": 0,
+    "weapon_damage_min": 3,
+    "weapon_damage_max": 15
   },
   "abilities": {
   },

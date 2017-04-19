@@ -1,12 +1,6 @@
 package braynstorm.hellven.game.dataparsing
 
-import braynstorm.hellven.Hellven
-import braynstorm.hellven.Localization
-import braynstorm.hellven.game.api.Entity
-import braynstorm.hellven.game.api.GameObject
 import braynstorm.hellven.game.ParseException
-import braynstorm.hellven.game.gameobjects.AbstractGameObject
-import braynstorm.hellven.game.gameobjects.Teleporter
 import com.badlogic.gdx.utils.JsonValue
 
 /**
@@ -43,31 +37,3 @@ class RawGameObjectDescription(
 	}
 }
 
-abstract class GameObjectDescription(val id: String) {
-	abstract fun createGameObject(): GameObject
-}
-
-class LootChestDescription() : GameObjectDescription("loot_chest") {
-	override fun createGameObject(): GameObject {
-		return LootChest()
-	}
-	
-}
-
-class LootChest() : AbstractGameObject("loot_chest",  Hellven.gameSkin.getSprite("ability_button_background")) {
-	override val name: String
-		get() = Localization.formatUI("go_teleporter")
-	
-	
-	override fun onInteract(entity: Entity) {
-		TODO("onInteract is not implemented")
-	}
-	
-}
-
-class TeleporterDescription(val world: String) : GameObjectDescription("teleporter") {
-	override fun createGameObject(): GameObject {
-		return Teleporter(world)
-	}
-	
-}
