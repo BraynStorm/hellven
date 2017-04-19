@@ -7,7 +7,7 @@
 -- Time: 17:36
 
 
--- TODO mage AI
+-- TODO improve mage AI
 function tick(entity)
 	local world = entity:getWorld()
 	local player = world:getPlayer()

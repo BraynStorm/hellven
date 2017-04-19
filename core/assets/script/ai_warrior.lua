@@ -6,7 +6,7 @@
 -- Date: 9.4.2017 г.
 -- Time: 14:52
 
-local Direction = luajava.bindClass("braynstorm.hellven.game.Direction")
+local Direction = luajava.bindClass("braynstorm.hellven.game.attributes.Direction")
 
 function tick(entity)
 	local world = entity:getWorld()

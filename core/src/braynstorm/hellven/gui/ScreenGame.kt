@@ -5,7 +5,6 @@ import braynstorm.hellven.game.World
 import braynstorm.hellven.gui.elements.AbilityBar
 import braynstorm.hellven.gui.elements.FrameEntity
 import braynstorm.hellven.gui.elements.FrameInventory
-import braynstorm.hellven.gui.elements.Tooltip
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.ScreenAdapter
@@ -28,7 +27,7 @@ class ScreenGame : ScreenAdapter() {
 	var targetFrame: FrameEntity
 	var inventoryFrame: FrameInventory
 	var abilityBar: AbilityBar
-	var tooltip: Tooltip = Tooltip()
+//	var tooltip: Tooltip = Tooltip()
 	
 	init {
 		Hellven.gameScreen = this
@@ -66,9 +65,9 @@ class ScreenGame : ScreenAdapter() {
 		staticUiStage.addActor(entityFramesTable)
 		staticUiStage.addActor(abilityBar)
 		staticUiStage.addActor(inventoryFrame)
-		staticUiStage.addActor(tooltip)
+//		staticUiStage.addActor(tooltip)
 		
-		tooltip.showWithText("asdf Tooltip")
+//		tooltip.showWithText("коко!")
 	}
 	
 	override fun render(delta: Float) {

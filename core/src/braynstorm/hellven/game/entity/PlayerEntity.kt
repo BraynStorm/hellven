@@ -1,18 +1,15 @@
 package braynstorm.hellven.game.entity
 
 import braynstorm.hellven.Hellven
-import braynstorm.hellven.game.attributes.Attributes
 import braynstorm.hellven.game.ResourceMap
 import braynstorm.hellven.game.TickReceiverMovement
 import braynstorm.hellven.game.Utils
+import braynstorm.hellven.game.ability.Abilities
 import braynstorm.hellven.game.ability.Ability
 import braynstorm.hellven.game.ability.FixedCostAbility
 import braynstorm.hellven.game.ability.FreeAbility
 import braynstorm.hellven.game.api.Entity
-import braynstorm.hellven.game.entity.AbstractMovingEntity
-import braynstorm.hellven.game.entity.EntityClass
-import braynstorm.hellven.game.entity.EntityType
-import braynstorm.hellven.game.entity.Hostility
+import braynstorm.hellven.game.attributes.Attributes
 import braynstorm.hellven.game.resource.Mana
 import com.badlogic.gdx.graphics.g2d.Batch
 
@@ -26,6 +23,9 @@ class PlayerEntity(entityClass: EntityClass,
 	
 	override val baseAttributes: Attributes = Utils.NewPlayer.getStats(entityClass)
 	override var calculatedAttributes: Attributes = Attributes()
+	
+	lateinit var abilityFireball: Ability
+	lateinit var abilityArcaneBlast: Ability
 	
 	override fun draw(batch: Batch) {
 		texture.setPosition(pixelLocation.x, pixelLocation.y)
@@ -41,6 +41,9 @@ class PlayerEntity(entityClass: EntityClass,
 	override var dead: Boolean = false
 	
 	fun afterLevelUp() {
+		abilityFireball = Abilities.Fireball(this, 1)
+		abilityArcaneBlast = Abilities.ArcaneBlast(this, 1)
+		
 		heal(health.capacity)
 		with(resources[Mana::class.java] ?: return) {
 			fill(capacity, true)

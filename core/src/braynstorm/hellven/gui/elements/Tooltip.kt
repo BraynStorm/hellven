@@ -22,6 +22,7 @@ class Tooltip() : Widget() {
 		width = 200f
 		height = 200f
 		setOrigin(Align.bottomLeft)
+		TODO("Implement Tooltip further")
 	}
 	
 	fun showWithText(string: String) {

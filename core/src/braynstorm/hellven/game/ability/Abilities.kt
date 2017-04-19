@@ -2,11 +2,11 @@ package braynstorm.hellven.game.ability
 
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.Localization
-import braynstorm.hellven.game.attributes.Attribute
 import braynstorm.hellven.game.ParseException
 import braynstorm.hellven.game.Ticker
 import braynstorm.hellven.game.World
 import braynstorm.hellven.game.api.Entity
+import braynstorm.hellven.game.attributes.Attribute
 import braynstorm.hellven.game.aura.AuraStack
 import braynstorm.hellven.game.aura.Auras
 import braynstorm.hellven.game.entity.EntityClass
@@ -138,6 +138,8 @@ sealed class Abilities {
 		var burnAuraDuration = 0f
 		var burnAuraTotalDamage = 0f
 		
+		val range = 5f
+		
 		override val cooldownLeft: Long = 0L
 		
 		fun calculate() {
@@ -182,7 +184,7 @@ sealed class Abilities {
 				return false
 			}
 			
-			if (user.cellLocation.dst2(target.cellLocation) > 5) {
+			if (user.cellLocation.dst(target.cellLocation) > range) {
 				return false
 			}
 			
