@@ -2,7 +2,6 @@ package braynstorm.hellven.game.entity
 
 import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.ResourceMap
-import braynstorm.hellven.game.TickReceiverMovement
 import braynstorm.hellven.game.Utils
 import braynstorm.hellven.game.ability.Abilities
 import braynstorm.hellven.game.ability.Ability
@@ -17,7 +16,7 @@ class PlayerEntity(entityClass: EntityClass,
                    override val name: String,
                    resources: ResourceMap = Utils.NewPlayer.getResources(entityClass),
                    override var level: Int
-) : AbstractMovingEntity(EntityType.PLAYER, entityClass, resources), TickReceiverMovement {
+) : AbstractMovingEntity(EntityType.PLAYER, entityClass, resources) {
 	var texture = Hellven.gameSkin.getSprite("player").apply { setSize(Hellven.cellSizeF, Hellven.cellSizeF) }
 		private set
 	
