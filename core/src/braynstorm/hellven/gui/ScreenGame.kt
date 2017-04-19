@@ -4,6 +4,8 @@ import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.World
 import braynstorm.hellven.gui.elements.AbilityBar
 import braynstorm.hellven.gui.elements.FrameEntity
+import braynstorm.hellven.gui.elements.FrameInventory
+import braynstorm.hellven.gui.elements.Tooltip
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.ScreenAdapter
@@ -22,9 +24,11 @@ class ScreenGame : ScreenAdapter() {
 	var worldStage: Stage
 	var entityFramesTable: Table
 	
-	 var playerFrame: FrameEntity
-	 var targetFrame: FrameEntity
-	 var abilityBar: AbilityBar
+	var playerFrame: FrameEntity
+	var targetFrame: FrameEntity
+	var inventoryFrame: FrameInventory
+	var abilityBar: AbilityBar
+	var tooltip: Tooltip = Tooltip()
 	
 	init {
 		Hellven.gameScreen = this
@@ -34,6 +38,7 @@ class ScreenGame : ScreenAdapter() {
 		
 		playerFrame = FrameEntity()
 		targetFrame = FrameEntity()
+		inventoryFrame = FrameInventory()
 		
 		
 		abilityBar = AbilityBar()
@@ -57,10 +62,13 @@ class ScreenGame : ScreenAdapter() {
 //		staticUiStage.setDebugAll(true)
 		
 		
-		
 		abilityBar.setFillParent(true)
 		staticUiStage.addActor(entityFramesTable)
 		staticUiStage.addActor(abilityBar)
+		staticUiStage.addActor(inventoryFrame)
+		staticUiStage.addActor(tooltip)
+		
+		tooltip.showWithText("asdf Tooltip")
 	}
 	
 	override fun render(delta: Float) {
@@ -84,6 +92,7 @@ class ScreenGame : ScreenAdapter() {
 		worldStage.clear()
 		worldStage.addActor(world)
 		Gdx.input.inputProcessor = InputMultiplexer(staticUiStage, world)
+		
 	}
 	
 }

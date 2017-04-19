@@ -3,6 +3,7 @@ package braynstorm.hellven.game.aura
 import braynstorm.hellven.game.Attribute
 import braynstorm.hellven.game.AttributeChange
 import braynstorm.hellven.game.Entity
+import com.badlogic.gdx.graphics.g2d.Sprite
 
 /**
  * Aura is a buff/debuff/status effect applied to a [braynstorm.rpg.entity.LivingEntity]
@@ -15,6 +16,7 @@ import braynstorm.hellven.game.Entity
  * Created by Braynstorm on 14.3.2017 г..
  */
 abstract class Aura(val id: Int) {
+	abstract val icon:Sprite
 	
 	abstract fun tick(receiver: Entity)
 	

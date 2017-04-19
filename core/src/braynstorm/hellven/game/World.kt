@@ -73,7 +73,7 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		}
 		
 		if(player.dead){
-			player.heal(player.health.capacity)
+			player.revive()
 		}
 		
 		if (spawnEntity(pos.x.toInt(), pos.y.toInt(), player)) {
@@ -89,8 +89,6 @@ class World(worldLayout: WorldLayout, val gameScreen: ScreenGame) : Table(), Gam
 		spawnAreas.forEach {
 			it.world = this
 		}
-		
-		
 		
 		println("" + player.pixelLocation + "  " + pos)
 		pack()

@@ -59,5 +59,7 @@ open class AuraStack(
 		return true
 	}
 	
+	val secondsLeft: Int get() = (ticksLeft / 10f).toInt()
+	
 	
 }

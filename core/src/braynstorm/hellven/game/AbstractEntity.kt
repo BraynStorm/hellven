@@ -287,6 +287,11 @@ abstract class AbstractEntity(override final val entityType: EntityType,
 		}
 	}
 	
+	fun revive(){
+		health.fill(health.capacity, true)
+		dead = false
+	}
+	
 	override fun receiveDamage(damage: Damage) {
 		if (!dead) {
 			if (health.drain(damage.calculateAgainst(this), true) > 0) {

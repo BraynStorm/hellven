@@ -75,4 +75,11 @@
       background: bar_background
     }
   }
+  com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+    default: {
+      background: inventory_background,
+      titleFont: default,
+      titleFontColor: {hex: "FFFFFF"},
+    }
+  }
 }

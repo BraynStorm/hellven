@@ -1,9 +1,11 @@
 package braynstorm.hellven.game.aura
 
+import braynstorm.hellven.Hellven
 import braynstorm.hellven.game.Attribute
 import braynstorm.hellven.game.AttributeChange
 import braynstorm.hellven.game.Entity
 import braynstorm.hellven.game.ability.Damage
+import com.badlogic.gdx.graphics.g2d.Sprite
 
 /**
  * TODO Add class description
@@ -15,6 +17,8 @@ sealed class Auras {
 	}
 	
 	class FireballDotAura(val causedBy: Entity, val dps: Damage) : Aura(1) {
+		override val icon: Sprite = Hellven.gameSkin.getSprite("ability_fireball")
+		
 		override fun getChange(attribute: Attribute): AttributeChange {
 			return AttributeChange.NO_CHANGE
 		}

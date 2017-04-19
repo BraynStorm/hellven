@@ -5,6 +5,7 @@ import braynstorm.hellven.game.Entity
 import braynstorm.hellven.game.resource.Health
 import braynstorm.hellven.game.resource.Mana
 import braynstorm.hellven.game.resource.Rage
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -21,7 +22,7 @@ class FrameEntity(entity: Entity?) : Table(Hellven.skin) {
 	val label = Label("", skin)
 	val healthBar = ResourceBar(Health(1f), skin)
 	val resourceBar = ResourceBar(Mana(1f), skin)
-	
+	val font = skin.getFont("Nevis18")!!
 	var entity: Entity? = null
 		set(value) {
 			field = value
@@ -72,8 +73,19 @@ class FrameEntity(entity: Entity?) : Table(Hellven.skin) {
 	}
 	
 	override fun draw(batch: Batch?, parentAlpha: Float) {
-		if (entity != null)
+		if (entity != null) {
 			super.draw(batch, parentAlpha)
+			
+			val auras = entity?.auras ?: return
+			
+			auras.forEachIndexed { index, auraStack ->
+				val icon = auraStack.aura.icon
+				icon.setPosition(x + index * icon.width, y - icon.height)
+				font.color = Color.BLACK
+				font.draw(batch, auraStack.secondsLeft.toString(), x + index * icon.width, y - icon.height + 10f, icon.width, Align.center, false)
+				icon.draw(batch)
+			}
+		}
 	}
 	
 	class Style {

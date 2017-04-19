@@ -16,7 +16,6 @@ class PlayerEntity(entityClass: EntityClass,
 	var texture = Hellven.gameSkin.getSprite("player").apply { setSize(Hellven.cellSizeF, Hellven.cellSizeF) }
 		private set
 	
-	
 	override val baseAttributes: Attributes = Utils.NewPlayer.getStats(entityClass)
 	override var calculatedAttributes: Attributes = Attributes()
 	

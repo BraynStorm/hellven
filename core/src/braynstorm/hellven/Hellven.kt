@@ -23,6 +23,7 @@ import ktx.scene2d.Scene2DSkin
 import java.util.Locale
 import kotlin.concurrent.thread
 
+
 object Hellven : Game() {
 	
 	lateinit var skin: Skin
@@ -69,7 +70,7 @@ object Hellven : Game() {
 		
 		
 		val themeSong = loadOnDemand("sounds/theme.mp3", MusicLoader.MusicParameter()).asset
-		themeSong.volume = 0.01f
+		themeSong.volume = 0.1f
 		thread(isDaemon = true, start = true) {
 			themeSong.play()
 		}

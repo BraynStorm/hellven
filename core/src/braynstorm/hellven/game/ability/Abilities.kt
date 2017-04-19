@@ -348,10 +348,12 @@ sealed class Abilities {
 	}
 	
 	class ArcaneBlast(val user: Entity, val rank: Int) : Ability {
+		private var lastUsed = 0L
 		
-		private val baseDamage = 30f
+		
+		private val baseDamage = 20f
 		private val baseManaCost = 30f
-		private val castTime = 3f
+		private val cooldown = 10L
 		
 		var damage = 0f
 		var manaCost = 30f
@@ -366,6 +368,13 @@ sealed class Abilities {
 		}
 		
 		override fun use(): Boolean {
+			val ticker = (user.world as? World)?.tickerNPCAI ?: return false
+			val now = ticker.passedTime
+			
+			if (now < lastUsed + cooldown) {
+				return false
+			}
+			
 			if (user.dead)
 				return false
 			
@@ -394,6 +403,7 @@ sealed class Abilities {
 			
 			target.receiveDamage(Damage(user, Damage.Type.ARCANE, damage))
 			user.setInCastStress()
+			lastUsed = now
 			return true
 		}
 		
