@@ -6,8 +6,6 @@ import braynstorm.hellven.game.Utils
 /**
  * Representation of the effect of an aura over a duration on a given [EntityLiving].
  *
- *
- *
  * @param aura The aura effect of the current "stack"
  * @param startingDuration The duration of the aura, in AuraTicks (@see [Aura]).
  */

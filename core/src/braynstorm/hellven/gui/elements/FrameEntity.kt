@@ -82,8 +82,8 @@ class FrameEntity(entity: Entity?) : Table(Hellven.skin) {
 				val icon = auraStack.aura.icon
 				icon.setPosition(x + index * icon.width, y - icon.height)
 				font.color = Color.BLACK
-				font.draw(batch, auraStack.secondsLeft.toString(), x + index * icon.width, y - icon.height + 10f, icon.width, Align.center, false)
 				icon.draw(batch)
+				font.draw(batch, auraStack.secondsLeft.toString(), x + index * icon.width, y - icon.height + 10f, icon.width, Align.center, false)
 			}
 		}
 	}

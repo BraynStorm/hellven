@@ -45,7 +45,7 @@ object Hellven : Game() {
 		val npcsFile = Gdx.files.internal("locale/npcs")
 		val itemsFile = Gdx.files.internal("locale/items")
 		val abilitiesFile = Gdx.files.internal("locale/abilities")
-		val bgLoc = Locale("bg", "BG")
+		val bgLoc = Locale("bg")
 		val enLoc = Locale.ENGLISH
 		Locale.setDefault(enLoc)
 		
